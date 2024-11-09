@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inthon_front/app/data/api/dio_api.dart';
 import 'package:inthon_front/app/data/extension/dio_response_x.dart';
+import 'package:inthon_front/app/data/model/completion.dart';
 import 'package:inthon_front/app/data/model/user.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:image/image.dart' as img;
@@ -40,6 +41,16 @@ class ServerApiService extends GetxService {
       return User.fromJson(res.data);
     }
     return null;
+  }
+
+  Future<List<Completion>> getCompletions() async {
+    final res = await api.get('/completion/user-list');
+    if (res.isOk) {
+      return (res.data as List)
+          .map((e) => Completion.fromJson(e as Map<String, dynamic>))
+          .toList();
+    }
+    return [];
   }
 
   Future<User> updateUser({
