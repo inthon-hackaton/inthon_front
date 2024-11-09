@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:inthon_front/app/feature/home/tabs/gallery/widget/gallery_item.dart';
 import 'package:inthon_front/app/feature/home/tabs/gallery/widget/image_contributers.dart';
 import 'package:inthon_front/app/widget/e_cached_image.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
@@ -83,7 +85,9 @@ class ListCard extends StatelessWidget {
       return _loadingWidget;
     }
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        context.push('/detail');
+      },
       borderRadius: BorderRadius.circular(6),
       child: Container(
         decoration: BoxDecoration(

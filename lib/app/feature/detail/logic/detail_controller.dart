@@ -8,19 +8,19 @@ import 'package:permission_handler/permission_handler.dart';
 class DetailController extends GetxController {
   static DetailController get to => Get.find();
 
-  bool isLoading = false;
+  final _imageList = <String>["", "", "", ""].obs;
+  List<String> get imageList => _imageList;
+  set imageList(List<String> value) => _imageList.value = value;
 
-  // List<File?> images = [null, null, null, null];
-  // List<String> imageList = [];
-  var imageList = <String>[].obs;
-
-  Future<void> onTapCard() async {
-    RouterService.to.goRouter.go('/detail');
-  }
+  final _isLoading = false.obs;
+  bool get isLoading => _isLoading.value;
+  set isLoading(bool value) => _isLoading.value = value;
 
   final _pickedImage = Rxn<XFile?>();
   XFile? get pickedImage => _pickedImage.value;
   set pickedImage(XFile? value) => _pickedImage.value = value;
+
+  bool get isValid => imageList.every((element) => element.isNotEmpty);
 
   void onTapUpload() async {
     if (isLoading) return;
@@ -57,19 +57,11 @@ class DetailController extends GetxController {
     }
   }
 
-  void saveImage(BuildContext context, int index, String userId) {
-    print("save");
-    imageList.insert(index, userId);
-    print(imageList);
-    Navigator.pop(context);
+  void saveImage(int index, String userId) {
+    imageList[index] = userId;
   }
 
-  void deleteImage(BuildContext context, int index) {
-    print("delete");
-    if (index >= 0 && index < imageList.length) {
-      // imageList[index] = ""; // 해당 인덱스의 요소를 빈 문자열로 변경
-      imageList.removeAt(index);
-    }
-    print(imageList);
+  void deleteImage(int index) {
+    imageList[index] = "";
   }
 }
