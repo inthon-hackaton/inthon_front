@@ -9,6 +9,15 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      scrolledUnderElevation: 0,
+      shadowColor: Colors.black,
+      bottom: PreferredSize(
+        preferredSize: Size.fromHeight(0),
+        child: Container(
+          color: Colors.grey[200],
+          height: 1,
+        ),
+      ),
       title: Row(
         children: [
           Icon(Icons.eco, color: context.getColorScheme.primary),

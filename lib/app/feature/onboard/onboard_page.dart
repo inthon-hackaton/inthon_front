@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inthon_front/app/feature/onboard/logic/onboard_controller.dart';
@@ -33,6 +35,7 @@ class _OnboardPageState extends State<OnboardPage> {
     setState(() {
       isLoading = true;
     });
+
     await OnboardController.to.loginGoogle();
     if (mounted) {
       setState(() {

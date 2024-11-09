@@ -145,6 +145,7 @@ class GalleryItem extends StatelessWidget {
                   ),
                 ),
                 ImageContributers(
+                  highlightFirst: true,
                   contributers: ["민준", "준희", "의찬", "다영"],
                 ),
               ],
