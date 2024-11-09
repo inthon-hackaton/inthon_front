@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 class AuthDio {
   final dio = Dio();
-  static const _host = "https://api.vreeze.app/api/v1";
+  static const _host = "http://15.165.76.65:8000/api/v1";
 
   Future<({String accessToken, String refreshToken})?> refreshToken(
     String? refreshToken,

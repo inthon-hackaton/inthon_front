@@ -46,7 +46,7 @@ class RouterService extends GetxService {
 
   Future<RouterService> init() async {
     goRouter = GoRouter(
-      initialLocation: "/",
+      initialLocation: "/onboard",
       redirect: (context, state) {
         final path = state.uri.toString();
         // final isOnboard = path.startsWith("/onboard");

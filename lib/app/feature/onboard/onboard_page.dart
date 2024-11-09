@@ -29,9 +29,9 @@ class _OnboardPageState extends State<OnboardPage> {
   }
 
   void onTap() async {
-    if (isLoading) {
-      return;
-    }
+    // if (isLoading) {
+    //   return;
+    // }
     setState(() {
       isLoading = true;
     });

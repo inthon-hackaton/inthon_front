@@ -14,7 +14,7 @@ class DioApi {
   }
 
   final Dio _dio;
-  static const _host = "https://api.vreeze.app/api/v1";
+  static const _host = "http://15.165.76.65:8000/api/v1";
 
   Future<Response> get(
     String path, {

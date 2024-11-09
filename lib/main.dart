@@ -37,6 +37,7 @@ void main() {
       );
     },
     (error, stackTrace) {
+      debugPrint('runZonedGuarded: $stackTrace');
       log('runZonedGuarded: ', error: error, stackTrace: stackTrace);
       debugPrint('runZonedGuarded: $error');
     },
