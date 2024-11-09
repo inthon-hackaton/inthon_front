@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:inthon_front/app/widget/e_cached_image.dart';
 
 class ImageContributers extends StatelessWidget {
-  const ImageContributers({Key? key, required this.contributers})
-      : super(key: key);
+  const ImageContributers({
+    Key? key,
+    required this.contributers,
+    this.highlightFirst = false,
+  }) : super(key: key);
 
   final List<String> contributers;
+  final bool highlightFirst;
 
   Widget get _user => ECachedImage(
         imageUrl: "https://hugeicons.com/api/png/?uuid=github-stroke-rounded",
@@ -37,7 +41,11 @@ class ImageContributers extends StatelessWidget {
             Positioned(
               left: 22 * i.toDouble(),
               child: Opacity(
-                opacity: i == 0 ? 1 : 0.4,
+                opacity: highlightFirst
+                    ? i == 0
+                        ? 1
+                        : 0.4
+                    : 1,
                 child: _user,
               ),
             ),

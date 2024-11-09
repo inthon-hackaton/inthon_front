@@ -134,7 +134,7 @@ class _MypageTabState extends State<MypageTab> {
             child: ShadButton.ghost(
               onPressed: () => context.push("/license"),
               icon: Icon(Icons.article_outlined, size: 20),
-              child: const Text('라이센스'),
+              child: const Text('라이선스'),
             ),
           ),
           SizedBox(

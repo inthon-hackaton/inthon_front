@@ -16,13 +16,15 @@ class ErrorInterceptorWrapper extends InterceptorsWrapper {
 
     if (statusCode == 401 || statusCode == 403 || statusCode == 400) {
       try {
-        notifier.show(err.response!.data['error']);
-        log(err.response!.data['error']);
+        // notifier.show(err.response!.data['error']);
+        // log(err.response/.data['error']);
+        log(err.stackTrace.toString());
+        log(err.response?.statusCode.toString() ?? "asd");
         log(err.requestOptions.path.toString());
-        handler.resolve(err.response!);
+        // handler.resolve(err.response!);
         return;
       } catch (e) {
-        log(e.toString());
+        log("[DIO]: $e");
       }
     }
 
