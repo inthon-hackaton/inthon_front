@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "com.example.inthon_front"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 34
     ndkVersion = flutter.ndkVersion
 
     compileOptions {

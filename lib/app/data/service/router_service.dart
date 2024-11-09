@@ -7,7 +7,9 @@ import 'package:inthon_front/app/data/extension/go_router_x.dart';
 import 'package:inthon_front/app/feature/error/error_page.dart';
 import 'package:inthon_front/app/feature/home/home_page.dart';
 import 'package:inthon_front/app/feature/onboard/onboard_page.dart';
+import 'package:inthon_front/app/feature/photo_view/photo_view_page.dart';
 import 'package:inthon_front/app/feature/tutorial/tutorial_page.dart';
+import 'package:shadcn_ui/shadcn_ui.dart';
 
 class RouterService extends GetxService {
   static RouterService get to => Get.find();
@@ -20,7 +22,10 @@ class RouterService extends GetxService {
   }) async {
     final context = goRouter.context;
     if (context != null) {
-      return showDialog<T>(context: context, builder: builder);
+      return showShadDialog(
+        context: context,
+        builder: (context) => builder(context),
+      );
     }
     return null;
   }
@@ -44,19 +49,31 @@ class RouterService extends GetxService {
       initialLocation: "/",
       redirect: (context, state) {
         final path = state.uri.toString();
-        final isOnboard = path.startsWith("/onboard");
-        if (!isOnboard) {
-          // if (AuthService.to.isLoggedIn) {
-          // return null;
-          // }
-          return "/onboard";
-        }
+        // final isOnboard = path.startsWith("/onboard");
+        // if (!isOnboard) {
+        //   // if (AuthService.to.isLoggedIn) {
+        //   // return null;
+        //   // }
+        //   return "/onboard";
+        // }
         return null;
       },
       routes: [
         GoRoute(
           path: '/',
           builder: (context, state) => const HomePage(),
+          routes: [
+            GoRoute(
+              path: "photo_view",
+              builder: (context, state) {
+                return PhotoViewPage();
+              },
+            ),
+          ],
+        ),
+        GoRoute(
+          path: '/license',
+          builder: (context, state) => const LicensePage(),
         ),
         GoRoute(
           path: '/onboard',
