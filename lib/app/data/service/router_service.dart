@@ -6,6 +6,8 @@ import 'package:go_router/go_router.dart';
 import 'package:inthon_front/app/data/extension/go_router_x.dart';
 import 'package:inthon_front/app/feature/error/error_page.dart';
 import 'package:inthon_front/app/feature/home/home_page.dart';
+import 'package:inthon_front/app/feature/onboard/onboard_page.dart';
+import 'package:inthon_front/app/feature/tutorial/tutorial_page.dart';
 
 class RouterService extends GetxService {
   static RouterService get to => Get.find();
@@ -39,10 +41,32 @@ class RouterService extends GetxService {
 
   Future<RouterService> init() async {
     goRouter = GoRouter(
+      initialLocation: "/",
+      redirect: (context, state) {
+        final path = state.uri.toString();
+        final isOnboard = path.startsWith("/onboard");
+        if (!isOnboard) {
+          // if (AuthService.to.isLoggedIn) {
+          // return null;
+          // }
+          return "/onboard";
+        }
+        return null;
+      },
       routes: [
         GoRoute(
           path: '/',
           builder: (context, state) => const HomePage(),
+        ),
+        GoRoute(
+          path: '/onboard',
+          builder: (context, state) => const OnboardPage(),
+          routes: [
+            GoRoute(
+              path: 'tutorial',
+              builder: (context, state) => const TutorialPage(),
+            ),
+          ],
         ),
       ],
       errorBuilder: (context, state) {
