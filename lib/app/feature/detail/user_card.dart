@@ -3,7 +3,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inthon_front/app/feature/detail/logic/detail_controller.dart';
-import 'package:inthon_front/app/feature/detail/upload_sheet.dart';
+import 'package:inthon_front/app/feature/detail/widgets/upload_sheet.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
 class UserCard extends StatelessWidget {

@@ -22,7 +22,7 @@ class DetailController extends GetxController {
 
   bool get isValid => imageList.every((element) => element.isNotEmpty);
 
-  void onTapUpload() async {
+  void uploadMyImage() async {
     if (isLoading) return;
     isLoading = true;
     await pickImage();

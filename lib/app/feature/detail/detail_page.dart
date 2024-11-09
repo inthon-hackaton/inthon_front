@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inthon_front/app/data/extension/build_context_x.dart';
 import 'package:inthon_front/app/feature/detail/logic/detail_controller.dart';
-import 'package:inthon_front/app/feature/detail/upload_sheet.dart';
+import 'package:inthon_front/app/feature/detail/widgets/upload_sheet.dart';
 import 'package:inthon_front/app/feature/detail/user_card.dart';
 import 'package:inthon_front/app/widget/e_cached_image.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
