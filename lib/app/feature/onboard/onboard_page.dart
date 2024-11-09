@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:inthon_front/app/feature/onboard/logic/onboard_controller.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
@@ -61,7 +60,7 @@ class _OnboardPageState extends State<OnboardPage> {
                       width: double.maxFinite,
                       height: 55,
                       child: ShadButton(
-                        onPressed: () {},
+                        onPressed: onTap,
                         icon: Image(
                           width: 20,
                           height: 20,
