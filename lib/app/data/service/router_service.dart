@@ -45,6 +45,19 @@ class RouterService extends GetxService {
     return null;
   }
 
+  CustomTransitionPage buildPageWithDefaultTransition<T>({
+    required BuildContext context,
+    required GoRouterState state,
+    required Widget child,
+  }) {
+    return CustomTransitionPage<T>(
+      key: state.pageKey,
+      child: child,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+          FadeTransition(opacity: animation, child: child),
+    );
+  }
+
   Future<RouterService> init() async {
     goRouter = GoRouter(
       initialLocation: "/",
@@ -62,33 +75,57 @@ class RouterService extends GetxService {
       routes: [
         GoRoute(
           path: '/',
-          builder: (context, state) => const HomePage(),
+          pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+            context: context,
+            state: state,
+            child: HomePage(),
+          ),
           routes: [
             GoRoute(
               path: "photo_view",
-              builder: (context, state) {
-                return PhotoViewPage();
-              },
+              pageBuilder: (context, state) =>
+                  buildPageWithDefaultTransition<void>(
+                context: context,
+                state: state,
+                child: PhotoViewPage(),
+              ),
             ),
           ],
         ),
         GoRoute(
           path: '/license',
-          builder: (context, state) => const LicensePage(),
+          pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+            context: context,
+            state: state,
+            child: LicensePage(),
+          ),
         ),
         GoRoute(
           path: '/onboard',
-          builder: (context, state) => const OnboardPage(),
+          pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+            context: context,
+            state: state,
+            child: const OnboardPage(),
+          ),
           routes: [
             GoRoute(
               path: 'tutorial',
-              builder: (context, state) => const TutorialPage(),
+              pageBuilder: (context, state) =>
+                  buildPageWithDefaultTransition<void>(
+                context: context,
+                state: state,
+                child: const TutorialPage(),
+              ),
             ),
           ],
         ),
         GoRoute(
           path: '/detail',
-          builder: (context, state) => const DetailPage(),
+          pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+            context: context,
+            state: state,
+            child: const DetailPage(),
+          ),
         )
       ],
       errorBuilder: (context, state) {

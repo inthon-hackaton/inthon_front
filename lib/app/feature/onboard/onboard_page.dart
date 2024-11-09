@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inthon_front/app/data/extension/build_context_x.dart';
 import 'package:inthon_front/app/feature/onboard/logic/onboard_controller.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
@@ -50,7 +51,28 @@ class _OnboardPageState extends State<OnboardPage> {
       body: SafeArea(
         child: Stack(
           children: [
-            Center(child: Text('Onboard')),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    width: 80,
+                    height: 80,
+                    "assets/icon.png",
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    '나뭇잎',
+                    style: context.getTextTheme.h2,
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    '조각 그림 심리치료 프로젝트',
+                    style: context.getTextTheme.muted,
+                  ),
+                ],
+              ),
+            ),
             Positioned(
               bottom: 17,
               left: 17,

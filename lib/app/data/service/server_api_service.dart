@@ -1,8 +1,12 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:inthon_front/app/data/api/dio_api.dart';
 import 'package:inthon_front/app/data/extension/dio_response_x.dart';
+import 'package:inthon_front/app/data/model/user.dart';
+import 'package:dio/dio.dart' as dio;
+import 'package:image/image.dart' as img;
 
 class ServerApiService extends GetxService {
   static ServerApiService get to => Get.find();
@@ -28,5 +32,53 @@ class ServerApiService extends GetxService {
     //   );
     // }
     return null;
+  }
+
+  Future<User?> getMe() async {
+    final res = await api.get('/user/get-info');
+    if (res.isOk) {
+      return User.fromJson(res.data);
+    }
+    return null;
+  }
+
+  Future<User> updateUser({
+    String? newNickname,
+    String? description,
+    XFile? newProfileImage,
+  }) async {
+    Map<String, dynamic> data = {};
+    if (newNickname != null) {
+      data["nickname"] = newNickname;
+    }
+    if (description != null) {
+      data["description"] = description;
+    }
+    if (newProfileImage != null) {
+      data["profile_picture"] = await cropImageAndConvertMultipart(
+        newProfileImage,
+      );
+    }
+    final res = await api.post(
+      "/user/modify-info",
+      data: dio.FormData.fromMap(data),
+    );
+    return User.fromJson(res.data);
+  }
+
+  Future<dio.MultipartFile> cropImageAndConvertMultipart(XFile image) async {
+    final imgObj = img.decodeImage(await image.readAsBytes());
+
+    final cropped = img.copyResize(
+      imgObj!,
+      width: 512,
+      height: 512,
+      maintainAspect: true,
+    );
+
+    return dio.MultipartFile.fromBytes(
+      img.encodeNamedImage(image.name, cropped)!,
+      filename: image.name,
+    );
   }
 }

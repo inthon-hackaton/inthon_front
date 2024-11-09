@@ -13,9 +13,6 @@ class MypageProfile extends StatefulWidget {
 }
 
 class _MypageProfileState extends State<MypageProfile> {
-  bool isPressed = false;
-  bool isLoading = false;
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -52,6 +49,22 @@ class _MypageProfileState extends State<MypageProfile> {
                 );
               },
             ),
+            if (widget.isEditable)
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.3),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: Icon(
+                      Icons.edit,
+                      color: context.getColorScheme.primary,
+                      size: 28,
+                    ),
+                  ),
+                ),
+              )
             // Obx(() {
             //   // final user = UserService.to.user;
             //   // if (user?.profile_image == null) {

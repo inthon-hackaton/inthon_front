@@ -7,6 +7,7 @@ import 'package:inthon_front/app/data/service/auth_service.dart';
 import 'package:inthon_front/app/data/service/router_service.dart';
 import 'package:inthon_front/app/data/service/server_api_service.dart';
 import 'package:inthon_front/app/data/service/storage_service.dart';
+import 'package:inthon_front/app/data/service/user_service.dart';
 import 'package:inthon_front/firebase_options.dart';
 
 class Service {
@@ -28,5 +29,6 @@ class Service {
     await Get.putAsync(() => RouterService().init());
     await Get.putAsync(() => AuthService().init());
     await Get.putAsync(() => ServerApiService().init());
+    await Get.putAsync(() => UserService().init());
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -141,7 +143,8 @@ class _MypageTabState extends State<MypageTab> {
             width: double.maxFinite,
             child: ShadButton.ghost(
               onPressed: () async {
-                AuthService.to.logout();
+                await AuthService.to.logout();
+                context.go("/onboard");
               },
               foregroundColor: Colors.red,
               icon: Icon(Icons.logout_outlined, size: 20),
