@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inthon_front/app/data/service/router_service.dart';
 import 'package:inthon_front/app/widget/overlay/simple_notify.dart';
-import 'dart:io';
 import 'package:permission_handler/permission_handler.dart';
 
 class DetailController extends GetxController {
@@ -10,7 +10,10 @@ class DetailController extends GetxController {
 
   bool isLoading = false;
 
-  List<File?> images = [null, null, null, null];
+  // List<File?> images = [null, null, null, null];
+  // List<String> imageList = [];
+  var imageList = <String>[].obs;
+
   Future<void> onTapCard() async {
     RouterService.to.goRouter.go('/detail');
   }
@@ -52,5 +55,21 @@ class DetailController extends GetxController {
       default:
         return false;
     }
+  }
+
+  void saveImage(BuildContext context, int index, String userId) {
+    print("save");
+    imageList.insert(index, userId);
+    print(imageList);
+    Navigator.pop(context);
+  }
+
+  void deleteImage(BuildContext context, int index) {
+    print("delete");
+    if (index >= 0 && index < imageList.length) {
+      // imageList[index] = ""; // 해당 인덱스의 요소를 빈 문자열로 변경
+      imageList.removeAt(index);
+    }
+    print(imageList);
   }
 }

@@ -42,6 +42,15 @@ class _DetailPageState extends State<DetailPage> {
               scrollDirection: Axis.vertical,
               child: Column(
                 children: [
+                  // Obx(
+                  //   () => ListView.builder(
+                  //     itemCount: controller.imageList.length,
+                  //     itemBuilder: (context, index) {
+                  //       ListTile(title: Text(controller.imageList[index]));
+                  //       return null;
+                  //     },
+                  //   ),
+                  // ),
                   SizedBox(height: 10),
                   Stack(
                     children: [
@@ -84,14 +93,35 @@ class _DetailPageState extends State<DetailPage> {
                     ],
                   ),
                   SizedBox(
-                    height: 100,
+                    height: 50,
                   ),
-                  UserCard(
-                    index: 1,
-                    userId: "userId",
-                    userProfile:
-                        "https://avatars.githubusercontent.com/u/80742780?v=4&size=64",
+                  Obx(
+                    () {
+                      final items = controller.imageList;
+                      return Column(
+                        children: [
+                          for (int i = 0; i < 4; i++)
+                            UserCard(
+                                index: i,
+                                userId: items.length < i + 1 ? "없음" : items[i],
+                                userProfile:
+                                    "https://avatars.githubusercontent.com/u/80742780?v=4&size=64")
+                        ],
+                      );
+                      // UserCard(
+                      //   index: 1,
+                      //   userId: "userId",
+                      //   userProfile:
+                      //       "https://avatars.githubusercontent.com/u/80742780?v=4&size=64",
+                      // );
+                    },
                   ),
+                  // UserCard(
+                  //   index: 1,
+                  //   userId: "userId",
+                  //   userProfile:
+                  //       "https://avatars.githubusercontent.com/u/80742780?v=4&size=64",
+                  // ),
                 ],
               ),
             ),
