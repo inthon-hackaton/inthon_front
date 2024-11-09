@@ -6,7 +6,7 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 class ListCard extends StatelessWidget {
   final String name;
   final int people;
-  // final Function onTap;
+  final Function onTap;
   final String? imageUrl;
   final String? userImage1;
   final String? userImage2;
@@ -15,7 +15,7 @@ class ListCard extends StatelessWidget {
     super.key,
     required this.name,
     required this.people,
-    // required this.onTap,
+    required this.onTap,
     this.imageUrl,
     this.userImage1,
     this.userImage2,
@@ -26,7 +26,7 @@ class ListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(20),
-      // onTap: () => onTap(),
+      onTap: () => onTap(),
       child: Container(
         // color: Colors.lightGreen,
         decoration: BoxDecoration(

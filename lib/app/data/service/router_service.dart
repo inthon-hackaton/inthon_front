@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inthon_front/app/data/extension/go_router_x.dart';
+import 'package:inthon_front/app/feature/detail/detail_page.dart';
 import 'package:inthon_front/app/feature/error/error_page.dart';
 import 'package:inthon_front/app/feature/home/home_page.dart';
 import 'package:inthon_front/app/feature/onboard/onboard_page.dart';
@@ -85,6 +86,10 @@ class RouterService extends GetxService {
             ),
           ],
         ),
+        GoRoute(
+          path: '/detail',
+          builder: (context, state) => const DetailPage(),
+        )
       ],
       errorBuilder: (context, state) {
         return const ErrorPage();

@@ -35,7 +35,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       resizeToAvoidBottomInset: false,
       appBar: HomeAppbar(),
       body: SafeArea(
@@ -112,7 +111,6 @@ class _HomePageState extends State<HomePage> {
 //             ),
 //           ),
 //         ],
-
       ),
     );
   }

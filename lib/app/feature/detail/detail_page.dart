@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:inthon_front/app/feature/detail/logic/detail_controller.dart';
 import 'package:inthon_front/app/feature/detail/upload_sheet.dart';
 import 'package:inthon_front/app/feature/detail/user_card.dart';
+import 'package:inthon_front/app/feature/home/widget/home_appbar.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -86,10 +87,11 @@ class _DetailPageState extends State<DetailPage> {
                     height: 100,
                   ),
                   UserCard(
-                      index: 1,
-                      userId: "userId",
-                      userProfile:
-                          "https://avatars.githubusercontent.com/u/80742780?v=4&size=64"),
+                    index: 1,
+                    userId: "userId",
+                    userProfile:
+                        "https://avatars.githubusercontent.com/u/80742780?v=4&size=64",
+                  ),
                 ],
               ),
             ),
