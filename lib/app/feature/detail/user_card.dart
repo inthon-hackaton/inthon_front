@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inthon_front/app/feature/detail/logic/detail_controller.dart';
 import 'package:inthon_front/app/widget/e_cached_image.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
@@ -47,7 +48,7 @@ class UserCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "$index번째 영역",
+                    "${index + 1}번째 영역",
                     style: ShadTheme.of(context).textTheme.h4,
                   ),
                   SizedBox(
@@ -68,11 +69,15 @@ class UserCard extends StatelessWidget {
             SizedBox(
               width: 40,
             ),
-            // 오른쪽 화살표
-            Icon(
-              Icons.cancel_sharp,
-              size: 24,
-              color: Colors.grey[400],
+            IconButton(
+              onPressed: () {
+                DetailController.to.deleteImage(context, index);
+              },
+              icon: Icon(
+                Icons.cancel_sharp,
+                size: 24,
+                color: Colors.grey[400],
+              ),
             )
           ],
         ),
