@@ -44,13 +44,13 @@ class RouterService extends GetxService {
       initialLocation: "/",
       redirect: (context, state) {
         final path = state.uri.toString();
-        final isOnboard = path.startsWith("/onboard");
-        if (!isOnboard) {
-          // if (AuthService.to.isLoggedIn) {
-          // return null;
-          // }
-          return "/onboard";
-        }
+        // final isOnboard = path.startsWith("/onboard");
+        // if (!isOnboard) {
+        //   // if (AuthService.to.isLoggedIn) {
+        //   // return null;
+        //   // }
+        //   return "/onboard";
+        // }
         return null;
       },
       routes: [
