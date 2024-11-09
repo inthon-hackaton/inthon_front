@@ -32,6 +32,15 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          children: [
+            Icon(Icons.eco, color: context.getColorScheme.primary),
+            SizedBox(width: 10),
+            Text("나뭇잎", style: context.getTextTheme.h4),
+          ],
+        ),
+      ),
       body: SafeArea(
         child: PersistentTabView(
           navBarBuilder: (navBarConfig) => Style10BottomNavBar(
