@@ -1,3 +1,2 @@
-# inthon_front
-
-A new Flutter project.
+# InThon
+화이팅~
