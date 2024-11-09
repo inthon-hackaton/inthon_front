@@ -17,7 +17,7 @@ void main() {
 
       runApp(
         ShadApp.router(
-          title: "Leaf",
+          title: "나뭇잎",
           debugShowCheckedModeBanner: false,
           routeInformationParser: goRouter.routeInformationParser,
           routeInformationProvider: goRouter.routeInformationProvider,
