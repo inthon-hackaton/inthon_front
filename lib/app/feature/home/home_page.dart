@@ -5,6 +5,7 @@ import 'package:inthon_front/app/feature/home/logic/home_controller.dart';
 import 'package:inthon_front/app/feature/home/tabs/gallery/gallery_tab.dart';
 import 'package:inthon_front/app/feature/home/tabs/home/home_tab.dart';
 import 'package:inthon_front/app/feature/home/tabs/mypage/mypage_tab.dart';
+import 'package:inthon_front/app/feature/home/widget/home_appbar.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 import 'package:sprung/sprung.dart';
@@ -33,19 +34,24 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Row(
-          children: [
-            Icon(Icons.eco, color: context.getColorScheme.primary),
-            SizedBox(width: 10),
-            Text("나뭇잎", style: context.getTextTheme.h4),
-          ],
-        ),
-      ),
+      appBar: HomeAppbar(),
       body: SafeArea(
         child: PersistentTabView(
+          onTabChanged: (value) {
+            HomeController.to.homeIndex = value;
+          },
           navBarBuilder: (navBarConfig) => Style10BottomNavBar(
             navBarConfig: navBarConfig,
+            navBarDecoration: NavBarDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  spreadRadius: 0,
+                  blurRadius: 4,
+                  offset: const Offset(0, -1),
+                ),
+              ],
+            ),
           ),
           screenTransitionAnimation: ScreenTransitionAnimation(
             curve: Sprung.overDamped,

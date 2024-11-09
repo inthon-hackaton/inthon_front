@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inthon_front/app/data/extension/build_context_x.dart';
 import 'package:inthon_front/app/data/service/router_service.dart';
-import 'package:inthon_front/app/feature/home/tabs/mypage/logic/mypage_controller.dart';
 import 'package:inthon_front/app/feature/home/tabs/mypage/widget/mypage_profile.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
