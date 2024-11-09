@@ -1,13 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inthon_front/app/data/extension/build_context_x.dart';
-import 'package:inthon_front/app/data/extension/go_router_x.dart';
+import 'package:inthon_front/app/data/service/auth_service.dart';
 import 'package:inthon_front/app/data/service/router_service.dart';
+import 'package:inthon_front/app/feature/home/tabs/mypage/logic/mypage_controller.dart';
+import 'package:inthon_front/app/feature/home/tabs/mypage/widget/mypage_edit_dialog.dart';
 import 'package:inthon_front/app/feature/home/tabs/mypage/widget/mypage_profile.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-class MypageTab extends StatelessWidget {
+class MypageTab extends StatefulWidget {
   const MypageTab({Key? key}) : super(key: key);
+
+  @override
+  _MypageTabState createState() => _MypageTabState();
+}
+
+class _MypageTabState extends State<MypageTab> {
+  @override
+  void initState() {
+    super.initState();
+    Get.put(MypageController());
+  }
+
+  @override
+  void dispose() {
+    Get.delete<MypageController>();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +37,20 @@ class MypageTab extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          MypageProfile(),
+          MypageProfile(isEditable: false),
           SizedBox(height: 15),
           Text("김민준", style: textTheme.h3),
-          SizedBox(height: 15),
+          SizedBox(height: 5),
           Text("자기소개를 입력해주세요.", style: textTheme.p),
           SizedBox(height: 15),
           ShadButton.ghost(
-            onPressed: () {},
+            onPressed: () {
+              RouterService.to.openDialog(
+                builder: (context) {
+                  return MypageEditDialog();
+                },
+              );
+            },
             icon: Icon(Icons.edit, size: 20),
             child: const Text('프로필 편집'),
           ),
@@ -106,11 +132,7 @@ class MypageTab extends StatelessWidget {
           SizedBox(
             width: double.maxFinite,
             child: ShadButton.ghost(
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => LicensePage(),
-                ),
-              ),
+              onPressed: () => context.push("/license"),
               icon: Icon(Icons.article_outlined, size: 20),
               child: const Text('라이센스'),
             ),
@@ -118,7 +140,9 @@ class MypageTab extends StatelessWidget {
           SizedBox(
             width: double.maxFinite,
             child: ShadButton.ghost(
-              onPressed: () {},
+              onPressed: () async {
+                AuthService.to.logout();
+              },
               foregroundColor: Colors.red,
               icon: Icon(Icons.logout_outlined, size: 20),
               child: SizedBox(

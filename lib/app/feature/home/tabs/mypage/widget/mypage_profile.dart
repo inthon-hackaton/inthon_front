@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:inthon_front/app/data/extension/build_context_x.dart';
+import 'package:inthon_front/app/feature/home/tabs/mypage/logic/mypage_controller.dart';
 import 'package:inthon_front/app/widget/e_cached_image.dart';
 
 class MypageProfile extends StatefulWidget {
-  const MypageProfile({super.key});
+  const MypageProfile({super.key, required this.isEditable});
+
+  final bool isEditable;
 
   @override
   _MypageProfileState createState() => _MypageProfileState();
@@ -18,7 +19,8 @@ class _MypageProfileState extends State<MypageProfile> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap:
+          widget.isEditable ? () => MypageController.to.onTapProfile() : null,
       child: SizedBox(
         width: 130,
         height: 130,

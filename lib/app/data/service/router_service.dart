@@ -8,6 +8,7 @@ import 'package:inthon_front/app/feature/error/error_page.dart';
 import 'package:inthon_front/app/feature/home/home_page.dart';
 import 'package:inthon_front/app/feature/onboard/onboard_page.dart';
 import 'package:inthon_front/app/feature/tutorial/tutorial_page.dart';
+import 'package:shadcn_ui/shadcn_ui.dart';
 
 class RouterService extends GetxService {
   static RouterService get to => Get.find();
@@ -20,7 +21,10 @@ class RouterService extends GetxService {
   }) async {
     final context = goRouter.context;
     if (context != null) {
-      return showDialog<T>(context: context, builder: builder);
+      return showShadDialog(
+        context: context,
+        builder: (context) => builder(context),
+      );
     }
     return null;
   }
@@ -57,6 +61,10 @@ class RouterService extends GetxService {
         GoRoute(
           path: '/',
           builder: (context, state) => const HomePage(),
+        ),
+        GoRoute(
+          path: '/license',
+          builder: (context, state) => const LicensePage(),
         ),
         GoRoute(
           path: '/onboard',
