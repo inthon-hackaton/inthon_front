@@ -1,29 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:inthon_front/app/feature/home/tabs/gallery/widget/gallery_item.dart';
+import 'package:inthon_front/app/data/model/draft.dart';
 import 'package:inthon_front/app/feature/home/tabs/gallery/widget/image_contributers.dart';
 import 'package:inthon_front/app/widget/e_cached_image.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:shimmer/shimmer.dart';
 
-class ListCard extends StatelessWidget {
-  final String name;
-  final int people;
-  final String imageUrl;
+class DraftCard extends StatelessWidget {
+  // final String name;
+  // final int people;
+  // final String imageUrl;
+  final Draft draft;
   final bool isLoadingWidget;
-  const ListCard({
+  const DraftCard({
     super.key,
-    required this.name,
-    required this.people,
-    required this.imageUrl,
+    required this.draft,
     this.isLoadingWidget = false,
   });
 
-  factory ListCard.loading() {
-    return ListCard(
-      name: "",
-      people: 0,
-      imageUrl: "",
+  factory DraftCard.loading() {
+    return DraftCard(
+      draft: Draft(
+        draft_id: 0,
+        draft_link: "",
+        draft_used_count: 0,
+        description: "",
+        draft_user_list: [],
+      ),
       isLoadingWidget: true,
     );
   }
@@ -40,7 +43,7 @@ class ListCard extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              width: 100,
+              width: 80,
               height: 80,
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -105,11 +108,10 @@ class ListCard extends StatelessWidget {
               child: ShadCard(
                 padding: const EdgeInsets.all(0),
                 child: SizedBox(
-                  width: 100,
+                  width: 80,
                   height: 80,
                   child: ECachedImage(
-                    imageUrl:
-                        "https://images.unsplash.com/photo-1517219039361-66f283bce5db?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTh8fHxlbnwwfHx8fHw%3D",
+                    imageUrl: draft.draft_link,
                   ),
                 ),
               ),
@@ -121,22 +123,27 @@ class ListCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    name,
+                    draft.description,
                     style: ShadTheme.of(context).textTheme.h4,
                   ),
                   SizedBox(height: 5),
-                  Row(
-                    children: [
-                      ImageContributers(
-                        contributers: ["민준", "준희", "의찬", "다영"],
-                      ),
-                      SizedBox(width: 5),
-                      Text(
-                        "+$people",
-                        style: ShadTheme.of(context).textTheme.small,
-                      ),
-                    ],
-                  ),
+                  draft.draft_used_count == 0
+                      ? Text(
+                          "아직 조각이 만들어지는 중이에요!",
+                          style: ShadTheme.of(context).textTheme.muted,
+                        )
+                      : Row(
+                          children: [
+                            ImageContributers(
+                              contributers: draft.draft_user_list,
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              "+${draft.draft_used_count}",
+                              style: ShadTheme.of(context).textTheme.small,
+                            ),
+                          ],
+                        ),
                 ],
               ),
             ),

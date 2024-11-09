@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:inthon_front/app/data/api/dio_api.dart';
 import 'package:inthon_front/app/data/extension/dio_response_x.dart';
 import 'package:inthon_front/app/data/model/completion.dart';
+import 'package:inthon_front/app/data/model/draft.dart';
 import 'package:inthon_front/app/data/model/user.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:image/image.dart' as img;
@@ -26,12 +27,12 @@ class ServerApiService extends GetxService {
     });
     // log(res.data.toString());
     // log(res.statusCode.toString());
-    // if (res.isOk) {
-    //   return (
-    //     accessToken: res.data["access"] as String?,
-    //     refreshToken: res.data["refresh"] as String?,
-    //   );
-    // }
+    if (res.isOk) {
+      return (
+        accessToken: res.data["access"] as String?,
+        refreshToken: res.data["refresh"] as String?,
+      );
+    }
     return null;
   }
 
@@ -48,6 +49,31 @@ class ServerApiService extends GetxService {
     if (res.isOk) {
       return (res.data as List)
           .map((e) => Completion.fromJson(e as Map<String, dynamic>))
+          .toList();
+    }
+    return [];
+  }
+
+  // Future<List<Completion>> getCompletions() async {
+  //   final res = await api.get('/completion/user-list');
+  //   if (res.isOk) {
+  //     return (res.data as List)
+  //         .map((e) => Completion.fromJson(e as Map<String, dynamic>))
+  //         .toList();
+  //   }
+  //   return [];
+  // }
+
+  Future<List<Draft>> getDrafts({
+    required int offset,
+    required int limit,
+  }) async {
+    final res = await api.get(
+      '/draft/draft-list?offset=$offset&limit=$limit',
+    );
+    if (res.isOk) {
+      return (res.data as List)
+          .map((e) => Draft.fromJson(e as Map<String, dynamic>))
           .toList();
     }
     return [];
