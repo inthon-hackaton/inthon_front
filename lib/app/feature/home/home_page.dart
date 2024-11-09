@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold();
     // return Scaffold(
     //   appBar: App,
     //   body: SafeArea(child: child),
