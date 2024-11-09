@@ -1,106 +1,55 @@
-# InThon
-화이팅~
+<div align="center">
+<h2>[2024] InThon 💻</h2>
+다양한 사람들과 함께 협업하여 그림을 완성해 보세요!
+</div>
 
-# Repository Quick Start template
 ## Index
-  - [Overview](#overview) 
-  - [Getting Started](#getting-started)
-  - [Contributing](#contributing)
-  - [Authors](#authors)
+  - [서비스 소개](#서비스-소개) 
+  - [솔루션 소개](#솔루션-소개)
   - [License](#license)
+  - [팀원소개](#팀원-소개)
 <!--  Other options to write Readme
   - [Deployment](#deployment)
   - [Used or Referenced Projects](Used-or-Referenced-Projects)
 -->
-## About RepositoryTemplate
+## 서비스 소개
 <!--Wirte one paragraph of project description -->  
-This project's purpose is to create a make Repository with a collection of default settings  
+### 배경
 
-## Overview
-<!-- Write Overview about this project -->
-**If you use this template, you can use this function**
-- Issue Template
-- Pull Request Template
-- Commit Template
-- Readme Template
-- Contribute Template
-- Pull Request Build Test(With Github Actions)
+- 현대 사회에서 늘어나는 스트레스 지수에 비해 자신에게 집중하는 시간이 부족함
+- 불안, 우울감, 불면증 등 심리적 어려움을 겪으면서도 대면 상담에 대한 부담감으로 인해 심리 상담을 쉽게 받지 못하는 경우가 많음
 
-## Getting Started
-**click `Use this template` and use this template!**
-<!--
-### Depencies
- Write about need to install the software and how to install them 
--->
-### Installing
-<!-- A step by step series of examples that tell you how to get a development 
-env running
+### 해결 방안 제안
+- 어플을 활용하여 대면 상담의 부담을 줄이고, 참여형 미술치료를 제공
+- 다양한 사람과의 협업을 통해서 미술 작품을 만들어서 자신감을 높이고 스트레스를 줄여줌
+- 창의적인 작업을 하면서 '몰입' 상태에 들어가게 되고 스트레스를 잊고 스스로에게 집중하는 시간을 가지도록 함
 
-Say what the step will be
+## 솔루션 소개
+STEP 1) 온보딩 & 로그인/회원가입
 
-    Give the example
+STEP 2) 메인 화면
 
-And repeat
+STEP 3) 작품 확인
 
-    until finished
--->
-1. Click `Use this template` button 
-2. Create New Repository
-3. Update Readme and Others(Other features are noted in comments.)
-<!--
-## Deployment
- Add additional notes about how to deploy this on a live system
- -->
-## Contributing
-<!-- Write the way to contribute -->
-I am looking for someone to help with this project. Please advise and point out.  
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code
-of conduct, and the process for submitting pull requests to us.
+STEP 4) 마이 페이지
 
-## Authors
-  - [Always0ne](https://github.com/Always0ne) - **SangIl Hwang** - <si8363@soongsil.ac.kr>
+## 기능적 구현
+![image](https://github.com/user-attachments/assets/d37f103b-9902-4cf3-9e92-6c0606ecbb5c)
 
-See also the list of [contributors](https://github.com/always0ne/readmeTemplate/contributors)
-who participated in this project.
-<!--
-## Used or Referenced Projects
- - [referenced Project](project link) - **LICENSE** - little-bit introduce
--->
+## 팀원 소개
 
-## License
-
-```
-MIT License
-
-Copyright (c) 2020 always0ne
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
-
+| 팀원 | 역할 | 소개 |
+|------|------|------|
+| ![민준](https://example.com/photo2.png) | **김민준** | 모바일 앱 개발 |
+| ![다영](https://example.com/photo1.png) | **최다영** | 모바일 앱 개발 |
+| ![의찬](https://example.com/photo3.png) | **박의찬** | 백엔드 개발 |
+| ![준희](https://example.com/photo3.png) | **한준희** | 백엔드 개발 |
 
 
 
 
 ## 
 
-- 커밋 메세지 작성시 '[nickname] : message' 의 형식으로 작성
-- 네이밍은 다음과 같이 작성함.
   - Front-end
     - Point
       - 시멘틱 Web 구성 신경 쓰기. (center, main, header, footer)
