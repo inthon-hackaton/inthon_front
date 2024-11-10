@@ -23,13 +23,7 @@ class _MypageTabState extends State<MypageTab> {
   @override
   void initState() {
     super.initState();
-    Get.put(MypageController());
-  }
-
-  @override
-  void dispose() {
-    Get.delete<MypageController>();
-    super.dispose();
+    Get.put(MypageController()..getStats());
   }
 
   @override
@@ -62,77 +56,80 @@ class _MypageTabState extends State<MypageTab> {
             SizedBox(height: 5),
             Divider(),
             SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
-                  children: [
-                    ShadCard(
-                      radius: BorderRadius.circular(40),
-                      width: 80,
-                      height: 80,
-                      child: Center(
-                        child: Icon(
-                          Icons.image,
-                          color: context.getColorScheme.primary,
-                          size: 28,
+            Obx(() {
+              final stats = MypageController.to.stats;
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    children: [
+                      ShadCard(
+                        radius: BorderRadius.circular(40),
+                        width: 80,
+                        height: 80,
+                        child: Center(
+                          child: Icon(
+                            Icons.image,
+                            color: context.getColorScheme.primary,
+                            size: 28,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      "32",
-                      style: textTheme.h4.copyWith(color: Colors.green),
-                    ),
-                    Text("게시물", style: textTheme.muted),
-                  ],
-                ),
-                Column(
-                  children: [
-                    ShadCard(
-                      radius: BorderRadius.circular(40),
-                      width: 80,
-                      height: 80,
-                      child: Center(
-                        child: Icon(
-                          Icons.favorite,
-                          color: Colors.pink,
-                          size: 28,
+                      SizedBox(height: 10),
+                      Text(
+                        stats?.total_pieces.toString() ?? "0",
+                        style: textTheme.h4.copyWith(color: Colors.green),
+                      ),
+                      Text("게시물", style: textTheme.muted),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      ShadCard(
+                        radius: BorderRadius.circular(40),
+                        width: 80,
+                        height: 80,
+                        child: Center(
+                          child: Icon(
+                            Icons.favorite,
+                            color: Colors.pink,
+                            size: 28,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      "392",
-                      style: textTheme.h4.copyWith(color: Colors.pink),
-                    ),
-                    Text("좋아요", style: textTheme.muted),
-                  ],
-                ),
-                Column(
-                  children: [
-                    ShadCard(
-                      radius: BorderRadius.circular(40),
-                      width: 80,
-                      height: 80,
-                      child: Center(
-                        child: Icon(
-                          Icons.share_rounded,
-                          color: Colors.blue,
-                          size: 28,
+                      SizedBox(height: 10),
+                      Text(
+                        stats?.total_likes.toString() ?? "0",
+                        style: textTheme.h4.copyWith(color: Colors.pink),
+                      ),
+                      Text("좋아요", style: textTheme.muted),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      ShadCard(
+                        radius: BorderRadius.circular(40),
+                        width: 80,
+                        height: 80,
+                        child: Center(
+                          child: Icon(
+                            Icons.share_rounded,
+                            color: Colors.blue,
+                            size: 28,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      "332",
-                      style: textTheme.h4.copyWith(color: Colors.blue),
-                    ),
-                    Text("인용횟수", style: textTheme.muted),
-                  ],
-                ),
-              ],
-            ),
+                      SizedBox(height: 10),
+                      Text(
+                        stats?.total_includes.toString() ?? "0",
+                        style: textTheme.h4.copyWith(color: Colors.blue),
+                      ),
+                      Text("인용횟수", style: textTheme.muted),
+                    ],
+                  ),
+                ],
+              );
+            }),
             Spacer(),
             SizedBox(
               width: double.maxFinite,

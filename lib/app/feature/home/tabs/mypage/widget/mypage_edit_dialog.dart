@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:inthon_front/app/data/extension/build_context_x.dart';
 import 'package:inthon_front/app/data/service/router_service.dart';
+import 'package:inthon_front/app/data/service/user_service.dart';
 import 'package:inthon_front/app/feature/home/tabs/mypage/logic/mypage_controller.dart';
 import 'package:inthon_front/app/feature/home/tabs/mypage/widget/mypage_profile.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
@@ -47,6 +46,8 @@ class _MypageEditDialogState extends State<MypageEditDialog> {
               setState(() {
                 isUploading = false;
               });
+              RouterService.to.goRouter.pop();
+              RouterService.to.showSimpleToast("프로필이 수정되었습니다.");
             },
             child: Text('저장'),
           ),
@@ -74,7 +75,7 @@ class _MypageEditDialogState extends State<MypageEditDialog> {
                   Expanded(
                     flex: 3,
                     child: ShadInput(
-                      initialValue: "김민준",
+                      initialValue: UserService.to.user?.nickname,
                       onChanged: (value) {
                         MypageController.to.nickname = value;
                       },
@@ -96,7 +97,7 @@ class _MypageEditDialogState extends State<MypageEditDialog> {
                   Expanded(
                     flex: 3,
                     child: ShadInput(
-                      initialValue: "자기소개를 입력해주세요",
+                      initialValue: UserService.to.user?.description,
                       onChanged: (value) {
                         MypageController.to.description = value;
                       },

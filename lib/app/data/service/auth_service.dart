@@ -5,10 +5,11 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:inthon_front/app/data/model/auth_result.dart';
 import 'package:inthon_front/app/data/service/server_api_service.dart';
 import 'package:inthon_front/app/data/service/storage_service.dart';
+import 'package:inthon_front/app/data/service/user_service.dart';
 import 'package:inthon_front/app/widget/overlay/simple_notify.dart';
 
 class AuthService extends GetxService {
-  static AuthService get to => AuthService();
+  static AuthService get to => Get.find<AuthService>();
 
   final isLoggedInObs = false.obs;
   bool get isLoggedIn => isLoggedInObs.value;
@@ -21,9 +22,8 @@ class AuthService extends GetxService {
   );
 
   String? accessToken;
-  String? refreshToken;
+  StorageService? storage;
 
-  late final StorageService storage;
   Future<AuthService> init() async {
     storage = StorageService.to;
     await _checkLoggedIn();
@@ -31,14 +31,13 @@ class AuthService extends GetxService {
   }
 
   Future<void> _checkLoggedIn() async {
-    final tokens = await storage.token.getTokens();
+    final tokens = await storage?.token.getTokens();
+    log(tokens.toString());
 
     if (tokens != null) {
       isLoggedIn = true;
       accessToken = tokens.accessToken;
-      refreshToken = tokens.refreshToken;
       log('AccessToken: $accessToken');
-      log('RefreshToken: $refreshToken');
     }
   }
 
@@ -59,6 +58,7 @@ class AuthService extends GetxService {
         SimpleNotify().show("구글 로그인에 실패했습니다.");
         return AuthResult.googleFail();
       }
+      log("OID TOKEN:$idToken");
 
       return serverOauthLogIn(idToken);
     } catch (e) {
@@ -75,23 +75,24 @@ class AuthService extends GetxService {
     if (tokens == null) {
       return AuthResult.serverFail();
     }
+    log("token::$tokens");
     isLoggedIn = true;
     await saveTokens(tokens);
-    // final result = await UserService.to.getMe();
-    if (true) return AuthResult.success();
+    final result = await UserService.to.getMe();
+    if (result) return AuthResult.success();
 
     return AuthResult.serverFail();
   }
 
   Future<void> saveTokens(
-    ({String? accessToken, String? refreshToken}) tokens,
+    String? accessToken,
   ) async {
-    assert(tokens.accessToken != null && tokens.refreshToken != null);
-    await storage.token.saveTokens(
-      accessToken: tokens.accessToken!,
-      refreshToken: tokens.refreshToken!,
+    assert(accessToken != null);
+    log('Saving tokens: $accessToken');
+    await storage?.token.saveTokens(
+      accessToken: accessToken!,
     );
-    accessToken = tokens.accessToken;
-    refreshToken = tokens.refreshToken;
+    accessToken = accessToken;
+    log("Current token: $accessToken");
   }
 }

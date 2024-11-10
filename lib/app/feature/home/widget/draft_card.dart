@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inthon_front/app/data/model/draft.dart';
+import 'package:inthon_front/app/data/service/router_service.dart';
 import 'package:inthon_front/app/feature/home/tabs/gallery/widget/image_contributers.dart';
 import 'package:inthon_front/app/widget/e_cached_image.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
@@ -22,61 +23,66 @@ class DraftCard extends StatelessWidget {
     return DraftCard(
       draft: Draft(
         draft_id: 0,
-        draft_link: "",
+        draft_link:
+            "https://avatars.githubusercontent.com/u/80742780?v=4&size=64",
         draft_used_count: 0,
-        description: "",
+        description: "도안 설명",
         draft_user_list: [],
       ),
       isLoadingWidget: true,
     );
   }
   Widget get _loadingWidget {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 8,
-        horizontal: 5,
-      ),
-      child: Shimmer.fromColors(
-        baseColor: Colors.grey.shade300,
-        highlightColor: Colors.grey.shade100,
-        enabled: true,
-        child: Row(
-          children: [
-            Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(6),
+    return GestureDetector(
+      onTap: () =>
+          RouterService.to.goRouter.push('/detail', extra: draft), // TODO
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 8,
+          horizontal: 5,
+        ),
+        child: Shimmer.fromColors(
+          baseColor: Colors.grey.shade300,
+          highlightColor: Colors.grey.shade100,
+          enabled: true,
+          child: Row(
+            children: [
+              Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(6),
+                ),
               ),
-            ),
-            SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 18,
-                    width: 120,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(4),
+              SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 18,
+                      width: 120,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 6),
-                  Container(
-                    height: 24,
-                    width: 100,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(4),
+                    SizedBox(height: 6),
+                    Container(
+                      height: 24,
+                      width: 100,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            SizedBox(width: 100, height: 20),
-          ],
+              SizedBox(width: 100, height: 20),
+            ],
+          ),
         ),
       ),
     );
@@ -89,7 +95,7 @@ class DraftCard extends StatelessWidget {
     }
     return InkWell(
       onTap: () {
-        context.push('/detail');
+        context.push('/detail', extra: draft);
       },
       borderRadius: BorderRadius.circular(6),
       child: Container(

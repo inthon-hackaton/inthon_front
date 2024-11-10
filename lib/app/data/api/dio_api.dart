@@ -1,12 +1,18 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:inthon_front/app/data/api/auth_interceptor_wrapper.dart';
 import 'package:inthon_front/app/data/api/error_interceptor_wrapper.dart';
+import 'package:inthon_front/app/data/service/storage_service.dart';
 import 'package:inthon_front/app/widget/overlay/simple_notify.dart';
 
 class DioApi {
   DioApi() : _dio = Dio() {
     _dio.interceptors.addAll([
+      AuthInterceptorWrapper(
+        dio: _dio,
+        storage: StorageService.to,
+      ),
       ErrorInterceptorWrapper(
         notifier: SimpleNotify(),
       ),

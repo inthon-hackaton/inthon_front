@@ -138,9 +138,9 @@ class __$$UserImplCopyWithImpl<$Res>
 class _$UserImpl implements _User {
   _$UserImpl(
       {required this.user_id,
-      required this.nickname,
-      required this.description,
-      required this.picture_url});
+      this.nickname = "",
+      this.description = "",
+      this.picture_url = ""});
 
   factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserImplFromJson(json);
@@ -148,10 +148,13 @@ class _$UserImpl implements _User {
   @override
   final int user_id;
   @override
+  @JsonKey()
   final String nickname;
   @override
+  @JsonKey()
   final String description;
   @override
+  @JsonKey()
   final String picture_url;
 
   @override
@@ -197,9 +200,9 @@ class _$UserImpl implements _User {
 abstract class _User implements User {
   factory _User(
       {required final int user_id,
-      required final String nickname,
-      required final String description,
-      required final String picture_url}) = _$UserImpl;
+      final String nickname,
+      final String description,
+      final String picture_url}) = _$UserImpl;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 

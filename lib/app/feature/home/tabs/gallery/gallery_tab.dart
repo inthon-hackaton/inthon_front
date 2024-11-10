@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:inthon_front/app/data/extension/build_context_x.dart';
 import 'package:inthon_front/app/feature/home/tabs/gallery/logic/gallery_controller.dart';
 import 'package:inthon_front/app/feature/home/tabs/gallery/widget/gallery_item.dart';
-import 'package:inthon_front/app/feature/onboard/onboard_page.dart';
 import 'package:lottie/lottie.dart';
 
 class GalleryTab extends StatefulWidget {

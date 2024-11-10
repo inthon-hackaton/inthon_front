@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inthon_front/app/data/extension/go_router_x.dart';
+import 'package:inthon_front/app/data/model/draft.dart';
+import 'package:inthon_front/app/data/service/auth_service.dart';
 import 'package:inthon_front/app/feature/detail/detail_page.dart';
 import 'package:inthon_front/app/feature/error/error_page.dart';
 import 'package:inthon_front/app/feature/home/home_page.dart';
@@ -45,6 +47,17 @@ class RouterService extends GetxService {
     return null;
   }
 
+  void showSimpleToast(String message) {
+    final context = goRouter.context;
+    if (context != null) {
+      ShadToaster.of(context).show(
+        ShadToast(
+          description: Text(message),
+        ),
+      );
+    }
+  }
+
   CustomTransitionPage buildPageWithDefaultTransition<T>({
     required BuildContext context,
     required GoRouterState state,
@@ -63,13 +76,13 @@ class RouterService extends GetxService {
       initialLocation: "/",
       redirect: (context, state) {
         final path = state.uri.toString();
-        // final isOnboard = path.startsWith("/onboard");
-        // if (!isOnboard) {
-        //   // if (AuthService.to.isLoggedIn) {
-        //   // return null;
-        //   // }
-        //   return "/onboard";
-        // }
+        final isOnboard = path.startsWith("/onboard");
+        if (!isOnboard) {
+          if (AuthService.to.isLoggedIn) {
+            return null;
+          }
+          return "/onboard";
+        }
         return null;
       },
       routes: [
@@ -124,7 +137,9 @@ class RouterService extends GetxService {
           pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
             context: context,
             state: state,
-            child: const DetailPage(),
+            child: DetailPage(
+              draft: state.extra as Draft,
+            ),
           ),
         )
       ],

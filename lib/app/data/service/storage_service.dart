@@ -1,12 +1,11 @@
-// import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:inthon_front/app/data/service/storage/token_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageService extends GetxService {
-  static StorageService get to => Get.find();
+  static StorageService get to => Get.find<StorageService>();
   Future<StorageService> init() async {
-    const storage = FlutterSecureStorage();
+    final storage = await SharedPreferences.getInstance();
     token = TokenStorage(storage);
     // cache = CacheStorage(storage);
 

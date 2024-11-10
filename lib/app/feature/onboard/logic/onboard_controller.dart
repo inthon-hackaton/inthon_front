@@ -6,8 +6,9 @@ class OnboardController extends GetxController {
   static OnboardController get to => Get.find();
 
   Future<void> loginGoogle() async {
-    // RouterService.to.goRouter.go('/onboard/tutorial');
+    await AuthService.to.loginWithGoogle();
 
-    final result = await AuthService.to.loginWithGoogle();
+    // RouterService.to.goRouter.go('/onboard/tutorial');
+    RouterService.to.goRouter.go('/');
   }
 }

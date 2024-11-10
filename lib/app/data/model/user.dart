@@ -7,9 +7,9 @@ part 'user.g.dart';
 class User with _$User {
   factory User({
     required int user_id,
-    required String nickname,
-    required String description,
-    required String picture_url,
+    @Default("") String nickname,
+    @Default("") String description,
+    @Default("") String picture_url,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

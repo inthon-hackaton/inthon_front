@@ -9,6 +9,7 @@ import 'package:inthon_front/app/data/model/draft.dart';
 import 'package:inthon_front/app/data/model/user.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:image/image.dart' as img;
+import 'package:inthon_front/app/data/model/user_stat.dart';
 
 class ServerApiService extends GetxService {
   static ServerApiService get to => Get.find();
@@ -18,20 +19,18 @@ class ServerApiService extends GetxService {
 
   final api = DioApi();
 
-  Future<({String? accessToken, String? refreshToken})?> googleLogin(
+  Future<String?> googleLogin(
     String openIdToken,
   ) async {
     log({"oi_token": openIdToken}.toString());
     final res = await api.post('/auth/verify_token', data: {
       "oi_token": openIdToken,
     });
-    // log(res.data.toString());
+
+    log("data::${res.data}");
     // log(res.statusCode.toString());
     if (res.isOk) {
-      return (
-        accessToken: res.data["access"] as String?,
-        refreshToken: res.data["refresh"] as String?,
-      );
+      return res.data["access_token"] as String?;
     }
     return null;
   }
@@ -63,6 +62,14 @@ class ServerApiService extends GetxService {
   //   }
   //   return [];
   // }
+
+  Future<UserStat?> getUserStats() async {
+    final res = await api.get('/piece/user-stats');
+    if (res.isOk) {
+      return UserStat.fromJson(res.data);
+    }
+    return null;
+  }
 
   Future<List<Draft>> getDrafts({
     required int offset,
@@ -96,11 +103,45 @@ class ServerApiService extends GetxService {
         newProfileImage,
       );
     }
+    log(data.toString());
     final res = await api.post(
-      "/user/modify-info",
+      "/user/update-info",
       data: dio.FormData.fromMap(data),
     );
     return User.fromJson(res.data);
+  }
+
+  Future<int> createPiece(
+    int pieceNumber,
+    String description,
+    int draftId,
+    XFile image,
+  ) async {
+    final res = await api.post(
+      "/piece/create?draft_id=$draftId&piece_number=$pieceNumber&description=$description",
+      data: dio.FormData.fromMap({
+        "picture": await cropImageAndConvertMultipart(
+          image,
+        ),
+      }),
+    );
+    if (res.isOk) {
+      return res.data["piece_id"] as int;
+    }
+    return -1;
+  }
+
+  Future<Completion?> createCompletion(List<int> pieceIds) async {
+    final res = await api.post(
+      "/completion/create",
+      data: {
+        "piece_ids": pieceIds,
+      },
+    );
+    if (res.isOk) {
+      return Completion.fromJson(res.data);
+    }
+    return null;
   }
 
   Future<dio.MultipartFile> cropImageAndConvertMultipart(XFile image) async {
