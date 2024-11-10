@@ -28,27 +28,40 @@
 ## 솔루션 소개
 ### 온보딩 & 로그인/회원가입
 
-<img src="./assets/img/onboard.jpeg" alt="onboard" style="zoom:33%;" />
+<img src="./assets/img/onboard.jpeg" alt="onboard"  width="280" height="600"  />
 
 ### 메인 화면
 
-<img src="./assets/img/select_piece.jpeg" alt="select_piece" style="zoom:33%;" /><img src="./assets/img/select_all.jpeg" alt="select_all" style="zoom:33%;" />
+
+<img src="https://github.com/user-attachments/assets/d40db264-c498-4fcf-b86e-4fa34af99e2e" alt="select_piece"  width="280" height="600"  /><img src="./assets/img/select_all.jpeg" alt="select_all"  width="280" height="600"  />
+<img src="https://github.com/user-attachments/assets/974f464e-908c-4284-898d-0c7fd408de59" alt="select_all"  width="280" height="600"  />
+
+
 
 
 
 ### 작품 확인
 
-<img src="./assets/img/galary.jpeg" alt="galary" style="zoom:33%;" />
+<img src="https://github.com/user-attachments/assets/0a138f4f-1343-45f6-a81c-ab35e5f39e48" alt="galary"  width="280" height="600"  />
+
+
+
 
 ### 마이 페이지
 
-<img src="./assets/img/profile.jpeg" alt="profile" style="zoom:33%;" /><img src="./assets/img/edit_profile.jpeg" alt="edit_profile" style="zoom:33%;" />
+<img src="./assets/img/profile.jpeg" alt="profile"  width="280" height="600"   /><img src="./assets/img/edit_profile.jpeg" alt="edit_profile"  width="280" height="600"  />
 
 
 
 ### 라이센스
 
-<img src="./assets/img/license.jpeg" alt="license" style="zoom:33%;" />
+<img src="./assets/img/license.jpeg" alt="license" width="280" height="600"  />
+
+
+### 최종 결과물
+
+![image](https://github.com/user-attachments/assets/a106ce02-338c-422a-b9c1-1257da6b6bcf)
+
 
 
 
@@ -62,10 +75,23 @@
 
 ## 팀원 소개
 
-| 팀원 | 역할 | 소개 |
-|------|------|------|
-| ![민준](https://example.com/photo2.png) | **김민준** | 모바일 앱 개발 |
-| ![다영](https://example.com/photo1.png) | **최다영** | 모바일 앱 개발 |
-| ![의찬](https://example.com/photo3.png) | **박의찬** | 백엔드 개발 |
-| ![준희](https://example.com/photo3.png) | **한준희** | 백엔드 개발 |
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/25a80d8b-c81c-4889-ac1d-18981739e84a" width="30" height="30" alt="민준"> <strong>김민준</strong></td>
+    <td>모바일 앱 개발</td>
+  </tr>
+  <tr>
+    <td><img src="https://avatars.githubusercontent.com/u/80742780?v=4" width="30" height="30" alt="다영"> <strong>최다영</strong></td>
+    <td>모바일 앱 개발</td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/62ee7cd2-993c-476a-b16c-e018b2d047c9" width="30" height="30" alt="의찬"> <strong>박의찬</strong></td>
+    <td>백엔드 개발</td>
+  </tr>
+  <tr>
+    <td><img src="https://avatars.githubusercontent.com/u/115782193?s=256&v=4" width="30" height="30" alt="준희"> <strong>한준희</strong></td>
+    <td>백엔드 개발</td>
+  </tr>
+</table>
+
 
