@@ -51,9 +51,12 @@ class _DetailPageState extends State<DetailPage> {
                     Stack(
                       children: [
                         Positioned.fill(
-                          child: Image.network(
-                            widget.draft.draft_link,
-                            fit: BoxFit.cover,
+                          child: Opacity(
+                            opacity: 0.4,
+                            child: Image.network(
+                              widget.draft.draft_link,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                         GridView.count(
@@ -92,7 +95,7 @@ class _DetailPageState extends State<DetailPage> {
                                 } else {
                                   return Container(
                                     decoration: BoxDecoration(
-                                      color: Colors.black26,
+                                      color: Colors.black12,
                                       border: Border.all(
                                         color: Colors.white,
                                         width: 1,

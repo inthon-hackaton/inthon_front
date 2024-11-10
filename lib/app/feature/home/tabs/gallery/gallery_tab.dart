@@ -66,13 +66,17 @@ class _GalleryTabState extends State<GalleryTab> {
                 position: index,
                 duration: const Duration(milliseconds: 1000),
                 delay: Duration(milliseconds: index * 200),
-                child: FadeInAnimation(child: GalleryItem()),
+                child: FadeInAnimation(
+                  child: GalleryItem(
+                    completion: completions[index],
+                  ),
+                ),
               );
             },
             separatorBuilder: (context, index) {
               return SizedBox(height: 15);
             },
-            itemCount: 10,
+            itemCount: completions.length,
           ),
         ),
       );
