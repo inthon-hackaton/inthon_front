@@ -20,4 +20,24 @@ class AuthInterceptorWrapper extends InterceptorsWrapper {
     }
     super.onRequest(options, handler);
   }
+
+  @override
+  void onError(DioException err, ErrorInterceptorHandler handler) async {
+    if (err.response?.statusCode != 401) {
+      return super.onError(err, handler);
+    }
+
+    if (_isTokenError(err)) {
+      await AuthService.to.handleTokenExpiration();
+    }
+    handler.reject(err);
+  }
+
+  bool _isTokenError(Object error) {
+    if (error is DioException) {
+      return error.response?.statusCode == 401;
+    }
+
+    return false;
+  }
 }

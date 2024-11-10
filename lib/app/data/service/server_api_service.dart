@@ -6,6 +6,7 @@ import 'package:inthon_front/app/data/api/dio_api.dart';
 import 'package:inthon_front/app/data/extension/dio_response_x.dart';
 import 'package:inthon_front/app/data/model/completion.dart';
 import 'package:inthon_front/app/data/model/draft.dart';
+import 'package:inthon_front/app/data/model/piece.dart';
 import 'package:inthon_front/app/data/model/user.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:image/image.dart' as img;
@@ -36,11 +37,21 @@ class ServerApiService extends GetxService {
   }
 
   Future<User?> getMe() async {
-    final res = await api.get('/user/get-info');
+    final res = await api.get('/user/get-info', isAuth: true);
     if (res.isOk) {
       return User.fromJson(res.data);
     }
     return null;
+  }
+
+  Future<List<Piece>> getPieces(int draftId) async {
+    final res = await api.get('/draft/draft-piece-list?draft_id=$draftId');
+    if (res.isOk) {
+      return (res.data as List)
+          .map((e) => Piece.fromJson(e as Map<String, dynamic>))
+          .toList();
+    }
+    return [];
   }
 
   Future<List<Completion>> getCompletions() async {
@@ -132,6 +143,9 @@ class ServerApiService extends GetxService {
   }
 
   Future<Completion?> createCompletion(List<int> pieceIds) async {
+    log({
+      "piece_ids": pieceIds,
+    }.toString());
     final res = await api.post(
       "/completion/create",
       data: {

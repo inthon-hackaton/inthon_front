@@ -1,8 +1,10 @@
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inthon_front/app/data/model/draft.dart';
+import 'package:inthon_front/app/data/model/piece.dart';
 import 'package:inthon_front/app/data/service/router_service.dart';
 import 'package:inthon_front/app/data/service/server_api_service.dart';
+import 'package:inthon_front/app/data/service/user_service.dart';
 import 'package:inthon_front/app/widget/overlay/simple_notify.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -33,9 +35,13 @@ class DetailController extends GetxController {
               value) =>
       _imageList.value = value;
 
-  final _pieces = <String>[].obs;
-  List<String> get pieces => _pieces;
-  set pieces(List<String> value) => _pieces.value = value;
+  final _pieces = <Piece>[].obs;
+  List<Piece> get pieces => _pieces;
+  set pieces(List<Piece> value) => _pieces.value = value;
+
+  bool checkIsSelected(int pieceId) {
+    return imageList.any((element) => element.$5 == pieceId);
+  }
 
   Future<XFile?> pickImage() async {
     final permission = await _checkPermission(Permission.photos, 'Photos');
@@ -72,8 +78,8 @@ class DetailController extends GetxController {
     imageList[index] = (
       image,
       "",
-      "https://avatars.githubusercontent.com/u/80742780?v=4&size=64",
-      "me!",
+      UserService.to.user?.picture_url ?? "",
+      UserService.to.user?.nickname ?? "",
       0
     );
   }
@@ -87,6 +93,10 @@ class DetailController extends GetxController {
     int index,
   ) {
     imageList[index] = (null, "", "", "", 0);
+  }
+
+  void getPieces() async {
+    pieces = await ServerApiService.to.getPieces(draft.draft_id);
   }
 
   void saveCompletion() async {
@@ -107,7 +117,7 @@ class DetailController extends GetxController {
       }
     }
     await ServerApiService.to.createCompletion(
-      imageList.map((e) => e.$5).toList(),
+      imageList.where((e) => e.$5 != 0).map((e) => e.$5).toList(),
     );
 
     RouterService.to.showSimpleToast("작품이 저장되었습니다.");

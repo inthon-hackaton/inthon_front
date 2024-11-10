@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:inthon_front/app/data/api/auth_interceptor_wrapper.dart';
 import 'package:inthon_front/app/data/api/error_interceptor_wrapper.dart';
+import 'package:inthon_front/app/data/service/auth_service.dart';
 import 'package:inthon_front/app/data/service/storage_service.dart';
 import 'package:inthon_front/app/widget/overlay/simple_notify.dart';
 
@@ -25,8 +26,19 @@ class DioApi {
   Future<Response> get(
     String path, {
     CancelToken? cancelToken,
+    bool isAuth = false,
   }) async {
-    return _dio.get(_host + path, cancelToken: cancelToken);
+    return _dio.get(
+      _host + path,
+      cancelToken: cancelToken,
+      options: isAuth
+          ? Options(
+              headers: {
+                "Authorization": "Bearer ${AuthService.to.accessToken}",
+              },
+            )
+          : null,
+    );
   }
 
   Future<Response> post(
