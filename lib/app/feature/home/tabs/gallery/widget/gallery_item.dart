@@ -1,12 +1,11 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inthon_front/app/data/extension/build_context_x.dart';
 import 'package:inthon_front/app/data/extension/datetime_x.dart';
 import 'package:inthon_front/app/data/model/completion.dart';
-import 'package:inthon_front/app/feature/home/tabs/gallery/widget/image_contributers.dart';
-import 'package:inthon_front/app/feature/home/tabs/home/home_tab.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -19,12 +18,14 @@ class GalleryItem extends StatelessWidget {
   final bool isLoadingWidget;
   final Completion completion;
 
-  Widget _image(int index, BuildContext context) => Expanded(
-        child: Container(
-          height: 100,
-          decoration: BoxDecoration(
-              // color: Colors.blue[100 * (1)],
-              ),
+  Widget _image(int index, BuildContext context) {
+    final piece =
+        completion.pieces.firstWhereOrNull((e) => e.piece_number == index + 1);
+    log(piece.toString());
+    if (piece == null) {
+      return Expanded(
+        child: SizedBox(
+          height: context.getWidth / 2 - 23,
           child: Center(
             child: Text(
               '아직 등록된\n이미지가 없어요!',
@@ -34,6 +35,21 @@ class GalleryItem extends StatelessWidget {
           ),
         ),
       );
+    }
+    return Expanded(
+      child: Container(
+        height: context.getWidth / 2 - 23,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(6),
+          image: DecorationImage(
+            image: NetworkImage(piece.picture_link),
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
+  }
 
   Widget get _loadingWidget {
     return ShadCard(
@@ -101,7 +117,6 @@ class GalleryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(completion.toString());
     if (isLoadingWidget) return _loadingWidget;
     return GestureDetector(
       onTap: () {
@@ -115,15 +130,15 @@ class GalleryItem extends StatelessWidget {
             Row(
               children: [
                 _image(0, context),
-                SizedBox(width: 5),
+                SizedBox(width: 2),
                 _image(1, context),
               ],
             ),
-            SizedBox(height: 5),
+            SizedBox(height: 2),
             Row(
               children: [
                 _image(2, context),
-                SizedBox(width: 5),
+                SizedBox(width: 2),
                 _image(3, context),
               ],
             ),
@@ -149,12 +164,12 @@ class GalleryItem extends StatelessWidget {
                     ],
                   ),
                 ),
-                ImageContributers(
-                  highlightFirst: true,
-                  contributers: completion.pieces
-                      .map((e) => e.profile_picture_link)
-                      .toList(),
-                ),
+                // ImageContributers(
+                //   highlightFirst: true,
+                //   contributers: completion.pieces
+                //       .map((e) => e.profile_picture_link)
+                //       .toList(),
+                // ),
               ],
             ),
           ],

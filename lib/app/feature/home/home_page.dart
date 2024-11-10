@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inthon_front/app/data/extension/build_context_x.dart';
 
 import 'package:inthon_front/app/feature/home/logic/home_controller.dart';
 import 'package:inthon_front/app/feature/home/tabs/gallery/gallery_tab.dart';
+import 'package:inthon_front/app/feature/home/tabs/gallery/logic/gallery_controller.dart';
 import 'package:inthon_front/app/feature/home/tabs/home/home_tab.dart';
 import 'package:inthon_front/app/feature/home/tabs/mypage/mypage_tab.dart';
 import 'package:inthon_front/app/feature/home/widget/home_appbar.dart';
@@ -40,6 +43,11 @@ class _HomePageState extends State<HomePage> {
         child: PersistentTabView(
           onTabChanged: (value) {
             HomeController.to.homeIndex = value;
+            if (value == 1) {
+              if (Get.isRegistered<GalleryController>()) {
+                Get.find<GalleryController>().getCompletions();
+              }
+            }
           },
           navBarBuilder: (navBarConfig) => Style10BottomNavBar(
             navBarConfig: navBarConfig,
