@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:inthon_front/app/data/model/auth_result.dart';
+import 'package:inthon_front/app/data/service/router_service.dart';
 import 'package:inthon_front/app/data/service/server_api_service.dart';
 import 'package:inthon_front/app/data/service/storage_service.dart';
 import 'package:inthon_front/app/data/service/user_service.dart';
@@ -41,7 +42,13 @@ class AuthService extends GetxService {
     }
   }
 
-  Future<void> logout() async {}
+  Future<void> logout() async {
+    await storage?.token.deleteTokens();
+    isLoggedIn = false;
+    if (Get.isRegistered<UserService>()) {
+      UserService.to.user = null;
+    }
+  }
 
   Future<AuthResult> loginWithGoogle() async {
     try {
@@ -92,7 +99,12 @@ class AuthService extends GetxService {
     await storage?.token.saveTokens(
       accessToken: accessToken!,
     );
-    accessToken = accessToken;
+    this.accessToken = accessToken;
     log("Current token: $accessToken");
+  }
+
+  Future<void> handleTokenExpiration() async {
+    RouterService.to.showSimpleToast("세션이 만료되었습니다. 다시 로그인해주세요.");
+    await logout();
   }
 }

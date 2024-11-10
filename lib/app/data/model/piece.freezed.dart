@@ -23,6 +23,8 @@ mixin _$Piece {
   int get piece_id => throw _privateConstructorUsedError;
   int get piece_number => throw _privateConstructorUsedError;
   String get picture_link => throw _privateConstructorUsedError;
+  String get nickname => throw _privateConstructorUsedError;
+  String get profile_picture_link => throw _privateConstructorUsedError;
 
   /// Serializes this Piece to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -38,7 +40,12 @@ abstract class $PieceCopyWith<$Res> {
   factory $PieceCopyWith(Piece value, $Res Function(Piece) then) =
       _$PieceCopyWithImpl<$Res, Piece>;
   @useResult
-  $Res call({int piece_id, int piece_number, String picture_link});
+  $Res call(
+      {int piece_id,
+      int piece_number,
+      String picture_link,
+      String nickname,
+      String profile_picture_link});
 }
 
 /// @nodoc
@@ -59,6 +66,8 @@ class _$PieceCopyWithImpl<$Res, $Val extends Piece>
     Object? piece_id = null,
     Object? piece_number = null,
     Object? picture_link = null,
+    Object? nickname = null,
+    Object? profile_picture_link = null,
   }) {
     return _then(_value.copyWith(
       piece_id: null == piece_id
@@ -73,6 +82,14 @@ class _$PieceCopyWithImpl<$Res, $Val extends Piece>
           ? _value.picture_link
           : picture_link // ignore: cast_nullable_to_non_nullable
               as String,
+      nickname: null == nickname
+          ? _value.nickname
+          : nickname // ignore: cast_nullable_to_non_nullable
+              as String,
+      profile_picture_link: null == profile_picture_link
+          ? _value.profile_picture_link
+          : profile_picture_link // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -84,7 +101,12 @@ abstract class _$$PieceImplCopyWith<$Res> implements $PieceCopyWith<$Res> {
       __$$PieceImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int piece_id, int piece_number, String picture_link});
+  $Res call(
+      {int piece_id,
+      int piece_number,
+      String picture_link,
+      String nickname,
+      String profile_picture_link});
 }
 
 /// @nodoc
@@ -103,6 +125,8 @@ class __$$PieceImplCopyWithImpl<$Res>
     Object? piece_id = null,
     Object? piece_number = null,
     Object? picture_link = null,
+    Object? nickname = null,
+    Object? profile_picture_link = null,
   }) {
     return _then(_$PieceImpl(
       piece_id: null == piece_id
@@ -117,6 +141,14 @@ class __$$PieceImplCopyWithImpl<$Res>
           ? _value.picture_link
           : picture_link // ignore: cast_nullable_to_non_nullable
               as String,
+      nickname: null == nickname
+          ? _value.nickname
+          : nickname // ignore: cast_nullable_to_non_nullable
+              as String,
+      profile_picture_link: null == profile_picture_link
+          ? _value.profile_picture_link
+          : profile_picture_link // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -127,7 +159,9 @@ class _$PieceImpl implements _Piece {
   _$PieceImpl(
       {required this.piece_id,
       required this.piece_number,
-      required this.picture_link});
+      required this.picture_link,
+      this.nickname = "",
+      this.profile_picture_link = ""});
 
   factory _$PieceImpl.fromJson(Map<String, dynamic> json) =>
       _$$PieceImplFromJson(json);
@@ -138,10 +172,16 @@ class _$PieceImpl implements _Piece {
   final int piece_number;
   @override
   final String picture_link;
+  @override
+  @JsonKey()
+  final String nickname;
+  @override
+  @JsonKey()
+  final String profile_picture_link;
 
   @override
   String toString() {
-    return 'Piece(piece_id: $piece_id, piece_number: $piece_number, picture_link: $picture_link)';
+    return 'Piece(piece_id: $piece_id, piece_number: $piece_number, picture_link: $picture_link, nickname: $nickname, profile_picture_link: $profile_picture_link)';
   }
 
   @override
@@ -154,13 +194,17 @@ class _$PieceImpl implements _Piece {
             (identical(other.piece_number, piece_number) ||
                 other.piece_number == piece_number) &&
             (identical(other.picture_link, picture_link) ||
-                other.picture_link == picture_link));
+                other.picture_link == picture_link) &&
+            (identical(other.nickname, nickname) ||
+                other.nickname == nickname) &&
+            (identical(other.profile_picture_link, profile_picture_link) ||
+                other.profile_picture_link == profile_picture_link));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, piece_id, piece_number, picture_link);
+  int get hashCode => Object.hash(runtimeType, piece_id, piece_number,
+      picture_link, nickname, profile_picture_link);
 
   /// Create a copy of Piece
   /// with the given fields replaced by the non-null parameter values.
@@ -182,7 +226,9 @@ abstract class _Piece implements Piece {
   factory _Piece(
       {required final int piece_id,
       required final int piece_number,
-      required final String picture_link}) = _$PieceImpl;
+      required final String picture_link,
+      final String nickname,
+      final String profile_picture_link}) = _$PieceImpl;
 
   factory _Piece.fromJson(Map<String, dynamic> json) = _$PieceImpl.fromJson;
 
@@ -192,6 +238,10 @@ abstract class _Piece implements Piece {
   int get piece_number;
   @override
   String get picture_link;
+  @override
+  String get nickname;
+  @override
+  String get profile_picture_link;
 
   /// Create a copy of Piece
   /// with the given fields replaced by the non-null parameter values.

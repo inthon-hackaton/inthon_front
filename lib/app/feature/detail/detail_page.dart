@@ -24,7 +24,7 @@ class _DetailPageState extends State<DetailPage> {
   @override
   void initState() {
     super.initState();
-    Get.put(DetailController(draft: widget.draft));
+    Get.put(DetailController(draft: widget.draft)..getPieces());
   }
 
   @override

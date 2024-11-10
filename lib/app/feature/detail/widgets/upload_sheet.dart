@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inthon_front/app/data/extension/build_context_x.dart';
@@ -128,13 +129,21 @@ class _UploadSheetState extends State<UploadSheet> {
                     style: ShadTheme.of(context).textTheme.large,
                   ),
                   SizedBox(height: 10),
-                  Column(
-                    children: [
-                      UploadSheetOtherItem(isSelected: true),
-                      UploadSheetOtherItem(isSelected: false),
-                      UploadSheetOtherItem(isSelected: false),
-                    ],
-                  )
+                  Obx(() {
+                    final pieces = DetailController.to.pieces
+                        .where((p) => p.piece_number == widget.index + 1)
+                        .toList();
+                    return Column(
+                      children: [
+                        for (final piece in pieces)
+                          UploadSheetOtherItem(
+                            piece: piece,
+                          ),
+                        // UploadSheetOtherItem(isSelected: false),
+                        // UploadSheetOtherItem(isSelected: false),
+                      ],
+                    );
+                  })
                 ],
               ),
             ),
