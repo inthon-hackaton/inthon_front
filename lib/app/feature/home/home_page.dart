@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inthon_front/app/data/extension/build_context_x.dart';
-import 'package:inthon_front/app/feature/home/widget/list_card.dart';
 
 import 'package:inthon_front/app/feature/home/logic/home_controller.dart';
 import 'package:inthon_front/app/feature/home/tabs/gallery/gallery_tab.dart';

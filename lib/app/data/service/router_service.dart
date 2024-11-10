@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inthon_front/app/data/extension/go_router_x.dart';
+import 'package:inthon_front/app/data/model/draft.dart';
+import 'package:inthon_front/app/data/service/auth_service.dart';
 import 'package:inthon_front/app/feature/detail/detail_page.dart';
 import 'package:inthon_front/app/feature/error/error_page.dart';
 import 'package:inthon_front/app/feature/home/home_page.dart';
@@ -45,50 +47,100 @@ class RouterService extends GetxService {
     return null;
   }
 
+  void showSimpleToast(String message) {
+    final context = goRouter.context;
+    if (context != null) {
+      ShadToaster.of(context).show(
+        ShadToast(
+          description: Text(message),
+        ),
+      );
+    }
+  }
+
+  CustomTransitionPage buildPageWithDefaultTransition<T>({
+    required BuildContext context,
+    required GoRouterState state,
+    required Widget child,
+  }) {
+    return CustomTransitionPage<T>(
+      key: state.pageKey,
+      child: child,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+          FadeTransition(opacity: animation, child: child),
+    );
+  }
+
   Future<RouterService> init() async {
     goRouter = GoRouter(
       initialLocation: "/",
       redirect: (context, state) {
         final path = state.uri.toString();
-        // final isOnboard = path.startsWith("/onboard");
-        // if (!isOnboard) {
-        //   // if (AuthService.to.isLoggedIn) {
-        //   // return null;
-        //   // }
-        //   return "/onboard";
-        // }
+        final isOnboard = path.startsWith("/onboard");
+        if (!isOnboard) {
+          if (AuthService.to.isLoggedIn) {
+            return null;
+          }
+          return "/onboard";
+        }
         return null;
       },
       routes: [
         GoRoute(
           path: '/',
-          builder: (context, state) => const HomePage(),
+          pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+            context: context,
+            state: state,
+            child: HomePage(),
+          ),
           routes: [
             GoRoute(
               path: "photo_view",
-              builder: (context, state) {
-                return PhotoViewPage();
-              },
+              pageBuilder: (context, state) =>
+                  buildPageWithDefaultTransition<void>(
+                context: context,
+                state: state,
+                child: PhotoViewPage(),
+              ),
             ),
           ],
         ),
         GoRoute(
           path: '/license',
-          builder: (context, state) => const LicensePage(),
+          pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+            context: context,
+            state: state,
+            child: LicensePage(),
+          ),
         ),
         GoRoute(
           path: '/onboard',
-          builder: (context, state) => const OnboardPage(),
+          pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+            context: context,
+            state: state,
+            child: const OnboardPage(),
+          ),
           routes: [
             GoRoute(
               path: 'tutorial',
-              builder: (context, state) => const TutorialPage(),
+              pageBuilder: (context, state) =>
+                  buildPageWithDefaultTransition<void>(
+                context: context,
+                state: state,
+                child: const TutorialPage(),
+              ),
             ),
           ],
         ),
         GoRoute(
           path: '/detail',
-          builder: (context, state) => const DetailPage(),
+          pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+            context: context,
+            state: state,
+            child: DetailPage(
+              draft: state.extra as Draft,
+            ),
+          ),
         )
       ],
       errorBuilder: (context, state) {

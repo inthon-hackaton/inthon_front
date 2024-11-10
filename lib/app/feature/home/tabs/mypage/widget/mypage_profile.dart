@@ -1,5 +1,10 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:inthon_front/app/data/extension/build_context_x.dart';
+import 'package:inthon_front/app/data/service/user_service.dart';
 import 'package:inthon_front/app/feature/home/tabs/mypage/logic/mypage_controller.dart';
 import 'package:inthon_front/app/widget/e_cached_image.dart';
 
@@ -13,9 +18,6 @@ class MypageProfile extends StatefulWidget {
 }
 
 class _MypageProfileState extends State<MypageProfile> {
-  bool isPressed = false;
-  bool isLoading = false;
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -26,11 +28,10 @@ class _MypageProfileState extends State<MypageProfile> {
         height: 130,
         child: Stack(
           children: [
-            ECachedImage(
-              imageUrl:
-                  "https://avatars.githubusercontent.com/u/28894198?v=4&size=128",
-              placeHolderRadius: 200,
-              imageBuilder: (_, imageProvider) {
+            Obx(() {
+              final pickedImage = MypageController.to.pickedImage;
+
+              if (pickedImage != null) {
                 return Container(
                   padding: const EdgeInsets.all(2.0),
                   decoration: BoxDecoration(
@@ -44,36 +45,73 @@ class _MypageProfileState extends State<MypageProfile> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                        image: imageProvider,
+                        image: Image.file(File(pickedImage.path)).image,
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
                 );
-              },
-            ),
-            // Obx(() {
-            //   // final user = UserService.to.user;
-            //   // if (user?.profile_image == null) {
-            //   //   return Center(child: Icon(Icons.person, size: 32));
-            //   // }
-            //   return ECachedImage(
-            //     imageUrl: "",
-            //     // imageUrl: user!.profile_image!,
-            //     placeHolderRadius: 200,
-            //     imageBuilder: (_, imageProvider) {
-            //       return Container(
-            //         decoration: BoxDecoration(
-            //           shape: BoxShape.circle,
-            //           image: DecorationImage(
-            //             image: imageProvider,
-            //             fit: BoxFit.cover,
-            //           ),
-            //         ),
-            //       );
-            //     },
-            //   );
-            // }),
+              }
+
+              final user = UserService.to.user;
+              if (user?.picture_url == null || user?.picture_url == "") {
+                return Container(
+                  padding: const EdgeInsets.all(2.0),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: context.getColorScheme.primary,
+                      width: 2,
+                    ),
+                  ),
+                  child: Center(
+                    child: Icon(Icons.person, size: 32),
+                  ),
+                );
+              }
+
+              return ECachedImage(
+                imageUrl: user!.picture_url,
+                placeHolderRadius: 200,
+                imageBuilder: (_, imageProvider) {
+                  return Container(
+                    padding: const EdgeInsets.all(2.0),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: context.getColorScheme.primary,
+                        width: 2,
+                      ),
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              );
+            }),
+            if (widget.isEditable)
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.3),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: Icon(
+                      Icons.edit,
+                      color: context.getColorScheme.primary,
+                      size: 28,
+                    ),
+                  ),
+                ),
+              )
           ],
         ),
       ),

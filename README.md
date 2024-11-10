@@ -1,3 +1,4 @@
+
 <div align="center">
 <h2>[2024] InThon 💻</h2>
 조각 그림 심리치료 프로젝트
@@ -44,3 +45,4 @@
 | ![다영](https://example.com/photo1.png) | **최다영** | 모바일 앱 개발 |
 | ![의찬](https://example.com/photo3.png) | **박의찬** | 백엔드 개발 |
 | ![준희](https://example.com/photo3.png) | **한준희** | 백엔드 개발 |
+

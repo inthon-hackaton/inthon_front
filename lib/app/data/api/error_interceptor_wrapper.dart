@@ -21,6 +21,7 @@ class ErrorInterceptorWrapper extends InterceptorsWrapper {
         log(err.stackTrace.toString());
         log(err.response?.statusCode.toString() ?? "asd");
         log(err.requestOptions.path.toString());
+        log("Header: ${err.requestOptions.headers}");
         // handler.resolve(err.response!);
         return;
       } catch (e) {

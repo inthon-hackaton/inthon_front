@@ -11,8 +11,8 @@ class ImageContributers extends StatelessWidget {
   final List<String> contributers;
   final bool highlightFirst;
 
-  Widget get _user => ECachedImage(
-        imageUrl: "https://hugeicons.com/api/png/?uuid=github-stroke-rounded",
+  Widget _user(String url) => ECachedImage(
+        imageUrl: url,
         placeHolder: const Icon(Icons.person),
         imageBuilder: (_, imageProvider) {
           return Container(
@@ -46,7 +46,7 @@ class ImageContributers extends StatelessWidget {
                         ? 1
                         : 0.4
                     : 1,
-                child: _user,
+                child: _user(contributers[i]),
               ),
             ),
         ],

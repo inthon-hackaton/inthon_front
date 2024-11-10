@@ -18,7 +18,7 @@ class UserCard extends StatelessWidget {
     return Obx(() {
       final item = DetailController.to.imageList.elementAt(index);
 
-      if (item.isEmpty) {
+      if (item.$1 == null && item.$5 == 0) {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 17),
           child: DottedBorder(
@@ -60,7 +60,7 @@ class UserCard extends StatelessWidget {
                 border: Border.all(color: Colors.grey[300]!, width: 1),
                 image: DecorationImage(
                   image: CachedNetworkImageProvider(
-                    "https://avatars.githubusercontent.com/u/80742780?v=4&size=64",
+                    item.$3,
                   ),
                   fit: BoxFit.cover,
                 ),
@@ -79,7 +79,7 @@ class UserCard extends StatelessWidget {
                         .copyWith(height: 1),
                   ),
                   Text(
-                    "username",
+                    item.$4,
                     style: ShadTheme.of(context).textTheme.p,
                   ),
                 ],
@@ -89,7 +89,7 @@ class UserCard extends StatelessWidget {
             ShadButton.ghost(
               foregroundColor: Colors.grey[400],
               onPressed: () {
-                DetailController.to.deleteImage(index);
+                DetailController.to.unselectImage(index);
               },
               icon: Icon(
                 Icons.cancel_sharp,

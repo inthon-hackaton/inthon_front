@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:inthon_front/app/data/extension/build_context_x.dart';
 import 'package:inthon_front/app/data/service/router_service.dart';
+import 'package:inthon_front/app/data/service/user_service.dart';
+import 'package:inthon_front/app/feature/home/tabs/mypage/logic/mypage_controller.dart';
 import 'package:inthon_front/app/feature/home/tabs/mypage/widget/mypage_profile.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-class MypageEditDialog extends StatelessWidget {
+class MypageEditDialog extends StatefulWidget {
   const MypageEditDialog({Key? key}) : super(key: key);
+
+  @override
+  _MypageEditDialogState createState() => _MypageEditDialogState();
+}
+
+class _MypageEditDialogState extends State<MypageEditDialog> {
+  bool isUploading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +32,23 @@ class MypageEditDialog extends StatelessWidget {
             child: Text('취소'),
           ),
           ShadButton(
-            onPressed: () {},
+            icon: isUploading
+                ? SizedBox.square(
+                    dimension: 16,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : null,
+            onPressed: () async {
+              setState(() {
+                isUploading = true;
+              });
+              await MypageController.to.updateProfile();
+              setState(() {
+                isUploading = false;
+              });
+              RouterService.to.goRouter.pop();
+              RouterService.to.showSimpleToast("프로필이 수정되었습니다.");
+            },
             child: Text('저장'),
           ),
         ],
@@ -49,7 +74,12 @@ class MypageEditDialog extends StatelessWidget {
                   const SizedBox(width: 16),
                   Expanded(
                     flex: 3,
-                    child: ShadInput(initialValue: "김민준"),
+                    child: ShadInput(
+                      initialValue: UserService.to.user?.nickname,
+                      onChanged: (value) {
+                        MypageController.to.nickname = value;
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -66,7 +96,12 @@ class MypageEditDialog extends StatelessWidget {
                   const SizedBox(width: 16),
                   Expanded(
                     flex: 3,
-                    child: ShadInput(initialValue: "자기소개를 입력해주세요"),
+                    child: ShadInput(
+                      initialValue: UserService.to.user?.description,
+                      onChanged: (value) {
+                        MypageController.to.description = value;
+                      },
+                    ),
                   ),
                 ],
               ),
