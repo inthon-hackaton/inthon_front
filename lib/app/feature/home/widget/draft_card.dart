@@ -34,8 +34,7 @@ class DraftCard extends StatelessWidget {
   }
   Widget get _loadingWidget {
     return GestureDetector(
-      onTap: () =>
-          RouterService.to.goRouter.push('/detail', extra: draft), // TODO
+      onTap: () => RouterService.to.goRouter.push('/detail', extra: draft),
       child: Padding(
         padding: const EdgeInsets.symmetric(
           vertical: 8,

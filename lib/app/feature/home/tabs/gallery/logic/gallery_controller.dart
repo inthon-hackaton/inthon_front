@@ -15,7 +15,6 @@ class GalleryController extends GetxController {
 
   void getCompletions() async {
     isLoading = true;
-    await Future.delayed(const Duration(seconds: 1));
     completions = await ServerApiService.to.getCompletions();
     isLoading = false;
   }

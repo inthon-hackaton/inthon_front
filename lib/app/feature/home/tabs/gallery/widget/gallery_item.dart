@@ -1,29 +1,55 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inthon_front/app/data/extension/build_context_x.dart';
 import 'package:inthon_front/app/data/extension/datetime_x.dart';
-import 'package:inthon_front/app/feature/home/tabs/gallery/widget/image_contributers.dart';
+import 'package:inthon_front/app/data/model/completion.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:shimmer/shimmer.dart';
 
 class GalleryItem extends StatelessWidget {
-  const GalleryItem({Key? key, this.isLoadingWidget = false}) : super(key: key);
+  const GalleryItem({
+    Key? key,
+    this.isLoadingWidget = false,
+    required this.completion,
+  }) : super(key: key);
   final bool isLoadingWidget;
+  final Completion completion;
 
-  Widget get _image => Expanded(
-        child: Container(
-          height: 100,
-          decoration: BoxDecoration(
-            color: Colors.blue[100 * (1)],
-          ),
+  Widget _image(int index, BuildContext context) {
+    final piece =
+        completion.pieces.firstWhereOrNull((e) => e.piece_number == index + 1);
+    log(piece.toString());
+    if (piece == null) {
+      return Expanded(
+        child: SizedBox(
+          height: context.getWidth / 2 - 23,
           child: Center(
             child: Text(
-              'Item',
-              style: TextStyle(fontSize: 24),
+              '아직 등록된\n이미지가 없어요!',
+              style: context.getTextTheme.muted,
+              textAlign: TextAlign.center,
             ),
           ),
         ),
       );
+    }
+    return Expanded(
+      child: Container(
+        height: context.getWidth / 2 - 23,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(6),
+          image: DecorationImage(
+            image: NetworkImage(piece.picture_link),
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
+  }
 
   Widget get _loadingWidget {
     return ShadCard(
@@ -80,7 +106,13 @@ class GalleryItem extends StatelessWidget {
   }
 
   factory GalleryItem.loading() {
-    return GalleryItem(isLoadingWidget: true);
+    return GalleryItem(
+      isLoadingWidget: true,
+      completion: Completion(
+        completion_id: 0,
+        created_at: DateTime.now(),
+      ),
+    );
   }
 
   @override
@@ -88,7 +120,10 @@ class GalleryItem extends StatelessWidget {
     if (isLoadingWidget) return _loadingWidget;
     return GestureDetector(
       onTap: () {
-        context.push("/photo_view");
+        context.push(
+          "/photo_view",
+          extra: completion.pieces.map((e) => e.picture_link).toList(),
+        );
       },
       child: ShadCard(
         padding: const EdgeInsets.all(17),
@@ -97,17 +132,17 @@ class GalleryItem extends StatelessWidget {
           children: [
             Row(
               children: [
-                _image,
-                SizedBox(width: 5),
-                _image,
+                _image(0, context),
+                SizedBox(width: 2),
+                _image(1, context),
               ],
             ),
-            SizedBox(height: 5),
+            SizedBox(height: 2),
             Row(
               children: [
-                _image,
-                SizedBox(width: 5),
-                _image,
+                _image(2, context),
+                SizedBox(width: 2),
+                _image(3, context),
               ],
             ),
             SizedBox(height: 10),
@@ -119,23 +154,11 @@ class GalleryItem extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.image, size: 20, color: Colors.green),
-                          SizedBox(width: 3),
-                          Expanded(
-                            child: Text(
-                              "그림의 주제",
-                              style: context.getTextTheme.large,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
                           Icon(Icons.schedule, size: 16, color: Colors.grey),
                           SizedBox(width: 3),
                           Expanded(
                             child: Text(
-                              DateTime.now().simpleDateFormat,
+                              completion.created_at.simpleDateFormat,
                               style: context.getTextTheme.muted,
                             ),
                           ),
@@ -144,10 +167,12 @@ class GalleryItem extends StatelessWidget {
                     ],
                   ),
                 ),
-                ImageContributers(
-                  highlightFirst: true,
-                  contributers: ["민준", "준희", "의찬", "다영"],
-                ),
+                // ImageContributers(
+                //   highlightFirst: true,
+                //   contributers: completion.pieces
+                //       .map((e) => e.profile_picture_link)
+                //       .toList(),
+                // ),
               ],
             ),
           ],

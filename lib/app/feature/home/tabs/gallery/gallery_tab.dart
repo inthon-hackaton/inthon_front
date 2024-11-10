@@ -36,7 +36,9 @@ class _GalleryTabState extends State<GalleryTab> {
         );
       }
 
-      final completions = GalleryController.to.completions;
+      final completions = GalleryController.to.completions
+          .where((e) => e.pieces.isNotEmpty)
+          .toList();
       if (completions.isEmpty) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -66,13 +68,17 @@ class _GalleryTabState extends State<GalleryTab> {
                 position: index,
                 duration: const Duration(milliseconds: 1000),
                 delay: Duration(milliseconds: index * 200),
-                child: FadeInAnimation(child: GalleryItem()),
+                child: FadeInAnimation(
+                  child: GalleryItem(
+                    completion: completions[index],
+                  ),
+                ),
               );
             },
             separatorBuilder: (context, index) {
               return SizedBox(height: 15);
             },
-            itemCount: 10,
+            itemCount: completions.length,
           ),
         ),
       );

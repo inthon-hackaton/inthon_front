@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:inthon_front/app/data/extension/build_context_x.dart';
 import 'package:inthon_front/app/feature/detail/logic/detail_controller.dart';
 import 'package:inthon_front/app/feature/detail/widgets/upload_sheet_other_item.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
 class UploadSheet extends StatefulWidget {
@@ -133,14 +134,27 @@ class _UploadSheetState extends State<UploadSheet> {
                     final pieces = DetailController.to.pieces
                         .where((p) => p.piece_number == widget.index + 1)
                         .toList();
+                    if (pieces.isEmpty) {
+                      return Column(
+                        children: [
+                          LottieBuilder.asset(
+                            width: 50,
+                            "assets/empty_cat.json",
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            "아직 등록된 조각이 없어요.",
+                            style: context.getTextTheme.muted,
+                          ),
+                        ],
+                      );
+                    }
                     return Column(
                       children: [
                         for (final piece in pieces)
                           UploadSheetOtherItem(
                             piece: piece,
                           ),
-                        // UploadSheetOtherItem(isSelected: false),
-                        // UploadSheetOtherItem(isSelected: false),
                       ],
                     );
                   })
