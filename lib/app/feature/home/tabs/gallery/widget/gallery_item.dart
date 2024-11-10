@@ -120,7 +120,10 @@ class GalleryItem extends StatelessWidget {
     if (isLoadingWidget) return _loadingWidget;
     return GestureDetector(
       onTap: () {
-        context.push("/photo_view");
+        context.push(
+          "/photo_view",
+          extra: completion.pieces.map((e) => e.picture_link).toList(),
+        );
       },
       child: ShadCard(
         padding: const EdgeInsets.all(17),

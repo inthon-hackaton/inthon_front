@@ -100,7 +100,9 @@ class RouterService extends GetxService {
                   buildPageWithDefaultTransition<void>(
                 context: context,
                 state: state,
-                child: PhotoViewPage(),
+                child: PhotoViewPage(
+                  photos: state.extra as List<String>,
+                ),
               ),
             ),
           ],
