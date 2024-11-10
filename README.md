@@ -28,11 +28,29 @@
 ## 솔루션 소개
 ### 온보딩 & 로그인/회원가입
 
+<img src="./assets/img/onboard.jpeg" alt="onboard" style="zoom:33%;" />
+
 ### 메인 화면
+
+<img src="./assets/img/select_piece.jpeg" alt="select_piece" style="zoom:33%;" /><img src="./assets/img/select_all.jpeg" alt="select_all" style="zoom:33%;" />
+
+
 
 ### 작품 확인
 
+<img src="./assets/img/galary.jpeg" alt="galary" style="zoom:33%;" />
+
 ### 마이 페이지
+
+<img src="./assets/img/profile.jpeg" alt="profile" style="zoom:33%;" /><img src="./assets/img/edit_profile.jpeg" alt="edit_profile" style="zoom:33%;" />
+
+
+
+### 라이센스
+
+<img src="./assets/img/license.jpeg" alt="license" style="zoom:33%;" />
+
+
 
 ## 기능적 구현
 ![image](https://github.com/user-attachments/assets/d37f103b-9902-4cf3-9e92-6c0606ecbb5c)
