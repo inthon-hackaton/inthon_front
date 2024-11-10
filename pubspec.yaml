@@ -28,6 +28,8 @@ dependencies:
   zoom_widget: ^2.0.1
   sliver_tools: ^0.2.12
   google_sign_in: ^6.2.2
+  http: ^1.2.2
+  path_provider: ^2.1.5
 
   ## UI ##
   sprung: ^3.0.1
